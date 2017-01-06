@@ -1,16 +1,13 @@
 
+<h1>Produits</h1>
 
-<table border="1px" > 
-    <tr >
-        <th>Nom</th>
-        <th>Ville</th>
-        <th>Adresse</th>
-        <th>Code Postal</th>
-        <th>Téléphone</th>
-        <th>Fax</th>
-        <th>Forme Juridique</th>
-        <th>Activité</th>
-    </tr>
+ <ul id="menu">
+  <li class="onglet_1"><a href="http://localhost/boulangeriePA/public/?controleur=utilisateur&action=produits">Sandwichs</a></li>
+  <li class="onglet_2"><a href="http://localhost/boulangeriePA/public/?controleur=utilisateur&action=produits">Boissons</a></li>
+  <li class="onglet_3"><a href="http://localhost/boulangeriePA/public/?controleur=utilisateur&action=produits">Desserts</a></li>
+</ul> 
+
+<table border="1px">
     <?php
     foreach ($this->lireDonnee('lesOrganisations') as $organisation) {
         echo'<tr>';
@@ -21,7 +18,6 @@
         echo'<td>' . $organisation->getTel() . '</td>';
         echo'<td>' . $organisation->getFax() . '</td>';
         echo'<td>' . $organisation->getFormeJuridique() . '</td>';
-        echo'<td>' . $organisation->getActivite() . '</td>';
         echo'</tr>';
     }
     ?>
