@@ -150,12 +150,12 @@ class C_Utilisateur extends C_ControleurGenerique {
     function afficherCommandes() {
         $this->vue = new V_Vue("../vues/templates/template.inc.php");
         $this->vue->ecrireDonnee('titreVue', 'Mes commandes');
-        $daoOrg = new M_DaoOrganisation();
-        $daoOrg->connecter();
+        $daoCommande = new M_DaoCommande();
+        $daoCommande->connecter();
         //récupération de la liste des organisations
-        $organisation = $daoOrg->getAll();
-        $this->vue->ecrireDonnee('lesOrganisations', $organisation);
-        $daoOrg->deconnecter();
+        $commandes = $daoCommande->getAll();
+        $this->vue->ecrireDonnee('lesCommandes', $commandes);
+        $daoCommande->deconnecter();
         // transmettre le login        
         $this->vue->ecrireDonnee('loginAuthentification', MaSession::get('login'));
         // vue centrale à inclure
@@ -165,13 +165,13 @@ class C_Utilisateur extends C_ControleurGenerique {
     
     function commander() {
         $this->vue = new V_Vue("../vues/templates/template.inc.php");
-        $this->vue->ecrireDonnee('titreVue', 'Commander');
-        $daoOrg = new M_DaoOrganisation();
-        $daoOrg->connecter();
+        $this->vue->ecrireDonnee('titreVue', 'Mes commandes');
+        $daoCommande = new M_DaoCommande();
+        $daoCommande->connecter();
         //récupération de la liste des organisations
-        $organisation = $daoOrg->getAll();
-        $this->vue->ecrireDonnee('lesOrganisations', $organisation);
-        $daoOrg->deconnecter();
+        $commandes = $daoCommande->getAll();
+        $this->vue->ecrireDonnee('lesCommandes', $commandes);
+        $daoCommande->deconnecter();
         // transmettre le login        
         $this->vue->ecrireDonnee('loginAuthentification', MaSession::get('login'));
         // vue centrale à inclure
@@ -182,12 +182,12 @@ class C_Utilisateur extends C_ControleurGenerique {
     function produits() {
         $this->vue = new V_Vue("../vues/templates/template.inc.php");
         $this->vue->ecrireDonnee('titreVue', 'Nos Produits');
-        $daoOrg = new M_DaoOrganisation();
-        $daoOrg->connecter();
+        $daoProduit = new M_DaoProduit();
+        $daoProduit->connecter();
         //récupération de la liste des organisations
-        $organisation = $daoOrg->getAll();
-        $this->vue->ecrireDonnee('lesOrganisations', $organisation);
-        $daoOrg->deconnecter();
+        $produits = $daoProduit->getAll();
+        $this->vue->ecrireDonnee('lesProduits', $produits);
+        $daoProduit->deconnecter();
         // transmettre le login        
         $this->vue->ecrireDonnee('loginAuthentification', MaSession::get('login'));
         // vue centrale à inclure
@@ -198,12 +198,12 @@ class C_Utilisateur extends C_ControleurGenerique {
     function formules() {
         $this->vue = new V_Vue("../vues/templates/template.inc.php");
         $this->vue->ecrireDonnee('titreVue', 'Nos Formules');
-        $daoOrg = new M_DaoOrganisation();
-        $daoOrg->connecter();
+        $daoFormule = new M_DaoMenu();
+        $daoFormule->connecter();
         //récupération de la liste des organisations
-        $organisation = $daoOrg->getAll();
-        $this->vue->ecrireDonnee('lesOrganisations', $organisation);
-        $daoOrg->deconnecter();
+        $formules = $daoFormule->getAll();
+        $this->vue->ecrireDonnee('lesFormules', $formules);
+        $daoFormule->deconnecter();
         // transmettre le login        
         $this->vue->ecrireDonnee('loginAuthentification', MaSession::get('login'));
         // vue centrale à inclure

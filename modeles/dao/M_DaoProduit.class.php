@@ -8,8 +8,8 @@
 class M_DaoProduit extends M_DaoGenerique {
 
     function __construct() {
-        $this->nomTable = "PRODUIT";
-        $this->nomClefPrimaire = "IDPRODUIT";
+        $this->nomTable = "produit";
+        $this->nomClefPrimaire = "idProduit";
     }
 
     /**
@@ -19,7 +19,7 @@ class M_DaoProduit extends M_DaoGenerique {
      * @return objet :  instance de la classe métier, initialisée d'après les valeurs de l'enregistrement 
      */
     public function enregistrementVersObjet($enreg) {
-        $retour = new M_DaoProduit($enreg['IDPRODUIT'], $enreg['NOMPRODUIT']);
+        $retour = new M_DaoProduit($enreg['idProduit'], $enreg['nomProduit']);
         return $retour;
     }
 
@@ -42,7 +42,7 @@ class M_DaoProduit extends M_DaoGenerique {
         $retour = FALSE;
         try {
             // Requête textuelle paramétrée (paramètres nommés)
-            $sql = "INSERT INTO $this->nomTable (NOMPRODUIT) VALUES (:nomProduit)";
+            $sql = "INSERT INTO $this->nomTable (nomProduit) VALUES (:nomProduit)";
 //            var_dump($sql);
             // préparer la requête PDO
             $queryPrepare = $this->pdo->prepare($sql);
@@ -62,8 +62,8 @@ class M_DaoProduit extends M_DaoGenerique {
         try {
             // Requête textuelle paramétrée (paramètres nommés)
             $sql = "UPDATE $this->nomTable SET ";
-            $sql .= "NOMPRODUIT = :nomProduit ";
-            $sql .= "WHERE IDPRODUIT = :id";
+            $sql .= "nomProduit = :nomProduit ";
+            $sql .= "WHERE idProduit = :id";
 //            var_dump($sql);
             // préparer la requête PDO
             $queryPrepare = $this->pdo->prepare($sql);
