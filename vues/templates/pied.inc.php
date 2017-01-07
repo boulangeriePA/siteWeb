@@ -1,7 +1,8 @@
 ﻿<div id="footer">
     <center>
         <p class="footer" ><b>Auteurs</b> :
-            Antoine RICHARD 2014/2015 PPE
+            <br> <br>
+            ANDRE Pierre-Louis - DIJOUX Ludovic - PIRONNEAU Adrien - RICHARD Antoine - SABARON Benjamin - VEILLET Alexis
         </p>
     </center>
 </div>

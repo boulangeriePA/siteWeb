@@ -1,10 +1,15 @@
 <?php
 
-class M_DaoOrganisation extends M_DaoGenerique {
+/**
+ * Description of M_DaoProduit
+ *
+ * @author arichard
+ */
+class M_DaoProduit extends M_DaoGenerique {
 
     function __construct() {
-        $this->nomTable = "ORGANISATION";
-        $this->nomClefPrimaire = "IDORGANISATION";
+        $this->nomTable = "PRODUIT";
+        $this->nomClefPrimaire = "IDPRODUIT";
     }
 
     /**
@@ -14,7 +19,7 @@ class M_DaoOrganisation extends M_DaoGenerique {
      * @return objet :  instance de la classe métier, initialisée d'après les valeurs de l'enregistrement 
      */
     public function enregistrementVersObjet($enreg) {
-        $retour = new M_Organisation($enreg['IDORGANISATION'], $enreg['NOM_ORGANISATION'], $enreg['VILLE_ORGANISATION'], $enreg['ADRESSE_ORGANISATION'], $enreg['CP_ORGANISATION'], $enreg['TEL_ORGANISATION'], $enreg['FAX_ORGANISATION'], $enreg['FORMEJURIDIQUE'], $enreg['ACTIVITE']);
+        $retour = new M_DaoProduit($enreg['IDPRODUIT'], $enreg['NOMPRODUIT']);
         return $retour;
     }
 
@@ -27,41 +32,68 @@ class M_DaoOrganisation extends M_DaoGenerique {
         // construire un tableau des paramètres d'insertion ou de modification
         // l'ordre des valeurs est important : il correspond à celui des paramètres de la requête SQL
         $retour = array(
-            ':idOrganisation' => $objetMetier->getIdRole(),
-            ':nomOrganisation' => $objetMetier->getNomOrganisation(),
-            ':villeOrganisation' => $objetMetier->getVilleOrganisation(),
-            ':adresseOrganisation' => $objetMetier->getAdresseOrganisation(),
-            ':cpOrganisation' => $objetMetier->getCpOrganisation(),
-            ':telOrganisation' => $objetMetier->getTelOrganisation(),
-            ':faxOrganisation' => $objetMetier->getFaxOrganisation(),
-            ':formeJuridique' => $objetMetier->getFormeJuridique(),
-            ':activite' => $objetMetier->getActivite()
+            ':idProduit' => $objetMetier->getIdProduit(),
+            ':nomProduit' => $objetMetier->getNomProduit()
         );
         return $retour;
     }
 
     public function insert($objetMetier) {
-        return FALSE;
+        $retour = FALSE;
+        try {
+            // Requête textuelle paramétrée (paramètres nommés)
+            $sql = "INSERT INTO $this->nomTable (NOMPRODUIT) VALUES (:nomProduit)";
+//            var_dump($sql);
+            // préparer la requête PDO
+            $queryPrepare = $this->pdo->prepare($sql);
+            // préparer la  liste des paramètres, avec l'identifiant en dernier
+            $parametres = $this->objetVersEnregistrement($objetMetier);
+            // exécuter la requête avec les valeurs des paramètres dans un tableau
+            $retour = $queryPrepare->execute($parametres);
+//            debug_query($sql, $parametres);
+        } catch (PDOException $e) {
+            echo get_class($this) . ' - ' . __METHOD__ . ' : ' . $e->getMessage();
+        }
+        return $retour;
     }
 
     public function update($idMetier, $objetMetier) {
-        return FALSE;
+        $retour = FALSE;
+        try {
+            // Requête textuelle paramétrée (paramètres nommés)
+            $sql = "UPDATE $this->nomTable SET ";
+            $sql .= "NOMPRODUIT = :nomProduit ";
+            $sql .= "WHERE IDPRODUIT = :id";
+//            var_dump($sql);
+            // préparer la requête PDO
+            $queryPrepare = $this->pdo->prepare($sql);
+            // préparer la  liste des paramètres la valeur de l'identifiant
+            //  à prendre en compte est celle qui a été passée en paramètre à la méthode
+            $parametres = $this->objetVersEnregistrement($objetMetier);
+            $parametres[':id'] = $idMetier;
+            // exécuter la requête avec les valeurs des paramètres dans un tableau
+            $retour = $queryPrepare->execute($parametres);
+//            debug_query($sql, $parametres);
+        } catch (PDOException $e) {
+            echo get_class($this) . ' - ' . __METHOD__ . ' : ' . $e->getMessage();
+        }
+        return $retour;
     }
 
     /**
-     * Retourne toutes les données en rapport avec l'ID de l'organisation en paramètre
-     * @param type $idOrganisation
+     * Retourne toutes les données en rapport avec l'ID de la commande en paramètre
+     * @param type $idProduit
      * @return array $retour
      */
-    public function selectOne($idOrganisation) {
+    public function selectOne($idProduit) {
         $retour = null;
         try {
             //requete
-            $sql = "SELECT * FROM ORGANISATION WHERE IDORGANISATION = :id";
+            $sql = "SELECT * FROM $this->nomTable WHERE idProduit = :id";
             //préparer la requête PDO
             $queryPrepare = $this->pdo->prepare($sql);
             //execution de la  requete
-            if ($queryPrepare->execute(array(':id' => $idOrganisation))) {
+            if ($queryPrepare->execute(array(':id' => $idProduit))) {
                 // si la requete marche
                 $enregistrement = $queryPrepare->fetch(PDO::FETCH_ASSOC);
                 $retour = $this->enregistrementVersObjet($enregistrement);
@@ -79,7 +111,7 @@ class M_DaoOrganisation extends M_DaoGenerique {
     function getAll() {
         $retour = null;
 // Requête textuelle
-        $sql = "SELECT * FROM $this->nomTable O ";
+        $sql = "SELECT * FROM $this->nomTable";
         try {
 // préparer la requête PDO
             $queryPrepare = $this->pdo->prepare($sql);

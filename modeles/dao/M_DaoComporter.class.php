@@ -1,10 +1,15 @@
 <?php
-
-class M_DaoRole extends M_DaoGenerique {
+/**
+ * Description of M_DaoComporter
+ *
+ * @author arichard
+ */
+class M_DaoComporter extends M_DaoGenerique {
 
     function __construct() {
-        $this->nomTable = "ROLE";
-        $this->nomClefPrimaire = "IDROLE";
+        $this->nomTable = "COMPORTER";
+        $this->nomClefPrimaireIdProduit = "IDMENU";
+        $this->nomClefPrimaireIdSauce = "IDCOMMANDE";
     }
 
     /**
@@ -14,8 +19,8 @@ class M_DaoRole extends M_DaoGenerique {
      * @return objet :  instance de la classe métier, initialisée d'après les valeurs de l'enregistrement 
      */
     public function enregistrementVersObjet($enreg) {
-        // on construit l'objet Role 
-        $retour = new M_Role($enreg['idRole'], $enreg['nomRole']);
+        //on construit l'objet Specialite
+        $retour = new M_DaoComporter($enreg['NB'], $enreg['IDMENU'], $enreg['IDCOMMANDE']);
         return $retour;
     }
 
@@ -28,8 +33,9 @@ class M_DaoRole extends M_DaoGenerique {
         // construire un tableau des paramètres d'insertion ou de modification
         // l'ordre des valeurs est important : il correspond à celui des paramètres de la requête SQL
         $retour = array(
-            ':idRole' => $objetMetier->getIdRole(),
-            ':nomRole' => $objetMetier->getNomRole()
+            ':nb' => $objetMetier->getNb(),
+            ':idMenu' => $objetMetier->getIdMenu(),
+            ':idCommande' => $objetMetier->getIdCommande()
         );
         return $retour;
     }
@@ -43,19 +49,20 @@ class M_DaoRole extends M_DaoGenerique {
     }
 
     /**
-     * Retourne toutes les données en rapport avec l'ID du rôle en paramètre
-     * @param type $idRole
+     * Retourne toutes les données en rapport avec l'ID du produit en paramètre
+     * @param type $idMenu
      * @return array $retour
      */
-    public function selectOne($idRole) {
+    public function selectOne($idMenu) {
         $retour = null;
         try {
             //requete
-            $sql = "SELECT * FROM $this->nomTable WHERE idrole = :id";
+            $sql = "SELECT * FROM $this->nomTable WHERE idMenu = :id";
             //préparer la requête PDO
+
             $queryPrepare = $this->pdo->prepare($sql);
             //execution de la  requete
-            if ($queryPrepare->execute(array(':id' => $idRole))) {
+            if ($queryPrepare->execute(array(':id' => $idMenu))) {
                 // si la requete marche
                 $enregistrement = $queryPrepare->fetch(PDO::FETCH_ASSOC);
                 $retour = $this->enregistrementVersObjet($enregistrement);

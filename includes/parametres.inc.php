@@ -1,13 +1,8 @@
 <?php
 
 // Version
-define('VERSION_APPLICATION', '2014/2015 - PPE');
+define('VERSION_APPLICATION', '2016/2017 - PA');
 
-// Accès base de données
-//define('DSN', 'mysql:host=localhost;dbname=arichard_gestage');
-//define('USER', 'arichard');
-//define('MDP', 'bddarichard');
-
-define('DSN', 'mysql:host=localhost;dbname=boulangeriePA');
+define('DSN', 'mysql:host=localhost;dbname=boulangeriepa');
 define('USER', 'root');
 define('MDP', '');

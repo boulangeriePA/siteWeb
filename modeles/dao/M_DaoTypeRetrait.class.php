@@ -1,10 +1,10 @@
 <?php
 
-class M_DaoRole extends M_DaoGenerique {
+class M_DaoTypeRetrait extends M_DaoGenerique {
 
     function __construct() {
-        $this->nomTable = "ROLE";
-        $this->nomClefPrimaire = "IDROLE";
+        $this->nomTable = "TYPERETRAIT";
+        $this->nomClefPrimaire = "IDTYPERETRAIT";
     }
 
     /**
@@ -14,8 +14,8 @@ class M_DaoRole extends M_DaoGenerique {
      * @return objet :  instance de la classe métier, initialisée d'après les valeurs de l'enregistrement 
      */
     public function enregistrementVersObjet($enreg) {
-        // on construit l'objet Role 
-        $retour = new M_Role($enreg['idRole'], $enreg['nomRole']);
+        // on construit l'objet TypeRetrait 
+        $retour = new M_DaoTypeRetrait($enreg['idTypeRetrait'], $enreg['nomTypeRetrait']);
         return $retour;
     }
 
@@ -28,8 +28,8 @@ class M_DaoRole extends M_DaoGenerique {
         // construire un tableau des paramètres d'insertion ou de modification
         // l'ordre des valeurs est important : il correspond à celui des paramètres de la requête SQL
         $retour = array(
-            ':idRole' => $objetMetier->getIdRole(),
-            ':nomRole' => $objetMetier->getNomRole()
+            ':idTypeRetrait' => $objetMetier->getIdTypeRetrait(),
+            ':nomTypeRetrait' => $objetMetier->getNomTypeRetrait()
         );
         return $retour;
     }
@@ -44,18 +44,18 @@ class M_DaoRole extends M_DaoGenerique {
 
     /**
      * Retourne toutes les données en rapport avec l'ID du rôle en paramètre
-     * @param type $idRole
+     * @param type $idTypeRetrait
      * @return array $retour
      */
-    public function selectOne($idRole) {
+    public function selectOne($idTypeRetrait) {
         $retour = null;
         try {
             //requete
-            $sql = "SELECT * FROM $this->nomTable WHERE idrole = :id";
+            $sql = "SELECT * FROM $this->nomTable WHERE idTypeRetrait = :id";
             //préparer la requête PDO
             $queryPrepare = $this->pdo->prepare($sql);
             //execution de la  requete
-            if ($queryPrepare->execute(array(':id' => $idRole))) {
+            if ($queryPrepare->execute(array(':id' => $idTypeRetrait))) {
                 // si la requete marche
                 $enregistrement = $queryPrepare->fetch(PDO::FETCH_ASSOC);
                 $retour = $this->enregistrementVersObjet($enregistrement);
