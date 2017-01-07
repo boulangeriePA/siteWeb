@@ -8,8 +8,8 @@
 class M_DaoUser extends M_DaoGenerique {
 
     function __construct() {
-        $this->nomTable = "USER";
-        $this->nomClefPrimaire = "IDUSER";
+        $this->nomTable = "user";
+        $this->nomClefPrimaire = "idUser";
     }
 
     /**
@@ -21,15 +21,15 @@ class M_DaoUser extends M_DaoGenerique {
     public function enregistrementVersObjet($enreg) {
 // on instancie l'objet Role s'il y a lieu
         $leRole = null;
-        if (isset($enreg['NOM'])) {
+        if (isset($enreg['nomRole'])) {
             $daoRole = new M_DaoRole();
             $daoRole->setPdo($this->pdo);
-            $leRole = $daoRole->getOneById($enreg['IDROLE']);
+            $leRole = $daoRole->getOneById($enreg['idRole']);
         }
 
-// on construit l'objet Personne 
-        $retour = new M_Personne(
-                $enreg['IDUSER'], $enreg['NOMUSER'], $enreg['PRENOMUSER'], $enreg['EMAIL'], $enreg['TEL'], $enreg['LOGIN'], $enreg['MDP'], $leRole);
+// on construit l'objet User 
+        $retour = new M_User(
+                $enreg['idUser'], $enreg['nomUser'], $enreg['prenomUser'], $enreg['email'], $enreg['tel'], $enreg['login'], $enreg['mdp'], $leRole);
         return $retour;
     }
 
@@ -43,13 +43,13 @@ class M_DaoUser extends M_DaoGenerique {
 // l'ordre des valeurs est important : il correspond à celui des paramètres de la requête SQL
 // le rôle sera mis à jour séparément
         if (!is_null($objetMetier->getRole())) {
-            $idRole = $objetMetier->getRole()->getId();
+            $idRole = $objetMetier->getRole()->getIdRole();
         } else {
             $idRole = 0; // "Autre" (simple visiteur)
         }
         $retour = array(
-            ':nomUser' => $objetMetier->getNom(),
-            ':prenomUser' => $objetMetier->getPrenom(),
+            ':nomUser' => $objetMetier->getNomUser(),
+            ':prenomUser' => $objetMetier->getPrenomUser(),
             ':email' => $objetMetier->getEmail(),
             ':tel' => $objetMetier->getTel(),
             ':login' => $objetMetier->getLogin(),

@@ -15,7 +15,7 @@ class M_DaoRole extends M_DaoGenerique {
      */
     public function enregistrementVersObjet($enreg) {
         // on construit l'objet Role 
-        $retour = new M_Role($enreg['IDROLE'], $enreg['NOMROLE']);
+        $retour = new M_Role($enreg['idRole'], $enreg['nomRole']);
         return $retour;
     }
 

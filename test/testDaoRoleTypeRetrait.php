@@ -14,7 +14,7 @@
         
         // Role : test de sélection par Id 
         echo "<p>Role : test de sélection par Id</p>";
-        $role = $dao->getOneById(4);
+        $role = $dao->getOneById(2);
         var_dump($role);
         
         // Role : test de sélection de tous les enregistrements
@@ -24,25 +24,25 @@
         
         // role : test de la selection par l'id d'un seul role
         echo "<p><u>Role : test select one </u></p>";
-        $unRole = $dao->selectOne(4);
+        $unRole = $dao->selectOne(1);
         var_dump($unRole);
         
         
-        $dao = new M_DaoSpecialite();
+        $dao = new M_DaoTypeRetrait();
         $dao->connecter();
         
-        // Specialite : test de sélection par Id 
-        echo "<p>Specialite : test de sélection par Id</p>";
-        $spe = $dao->getOneById(2);
-        var_dump($spe);
+        // TypeRetrait : test de sélection par Id 
+        echo "<p>TypeRetrait : test de sélection par Id</p>";
+        $type = $dao->getOneById(2);
+        var_dump($type);
         
-        // Specialite : test de sélection de tous les enregistrements
-        echo "<p>Specialite : test de sélection de tous les enregistrements</p>";
-        $lesSpes = $dao->getAll();
-        var_dump($lesSpes);
+        // TypeRetrait : test de sélection de tous les enregistrements
+        echo "<p>TypeRetrait : test de sélection de tous les enregistrements</p>";
+        $lesTypes = $dao->getAll();
+        var_dump($lesTypes);
         
-        // Specialite : test de la selection par l'id d'une seule specialite
-        echo '<p>Specilite : test select one</p>';
+        // TypeRetrait : test de la selection par l'id d'une seule specialite
+        echo '<p>TypeRetrait : test select one</p>';
         $selection = $dao->selectOne(1);
         var_dump($selection);
         $dao->deconnecter();

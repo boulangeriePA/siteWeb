@@ -29,14 +29,14 @@ class C_Connexion extends C_ControleurGenerique {
         //------------------------------------------------------------------------
         // VUE CENTRALE
         //------------------------------------------------------------------------
-        $daoPersonne = new M_DaoPersonne();
+        $daoUser = new M_DaoUser();
         // Vérifier login et mot de passe saisis dans la formulaire d'authentification
         if (isset($_POST['login']) && isset($_POST['mdp'])) {
             $login = $_POST['login'];
             $mdp = $_POST['mdp'];
-            $daoPersonne->connecter();
-            $unUser = $daoPersonne->verifierLogin($login, $mdp);
-            $daoPersonne->deconnecter();
+            $daoUser->connecter();
+            $unUser = $daoUser->verifierLogin($login, $mdp);
+            $daoUser->deconnecter();
             if ($unUser) {
                 // Si le login et le mot de passe sont valides, ouvrir une nouvelle session
                 MaSession::nouvelle(array('login' => $login, 'role' => $unUser["IDROLE"])); // service minimum
