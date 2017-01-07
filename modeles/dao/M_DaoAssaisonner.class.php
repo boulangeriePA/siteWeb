@@ -20,7 +20,7 @@ class M_DaoAssaisonner extends M_DaoGenerique {
      */
     public function enregistrementVersObjet($enreg) {
         //on construit l'objet Specialite
-        $retour = new M_DaoAssaisonner($enreg['IDPRODUIT'], $enreg['IDSAUCE']);
+        $retour = new M_Assaisonner($enreg['IDPRODUIT'], $enreg['IDSAUCE']);
         return $retour;
     }
 

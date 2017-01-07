@@ -21,7 +21,7 @@ class M_DaoPosseder extends M_DaoGenerique {
      */
     public function enregistrementVersObjet($enreg) {
         //on construit l'objet Specialite
-        $retour = new M_DaoPosseder($enreg['IDMENU'], $enreg['IDPRODUIT']);
+        $retour = new M_Posseder($enreg['IDMENU'], $enreg['IDPRODUIT']);
         return $retour;
     }
 

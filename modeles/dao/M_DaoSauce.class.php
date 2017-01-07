@@ -4,7 +4,7 @@
  *
  * @author arichard
  */
-class M_DaoBoisson extends M_DaoGenerique {
+class M_DaoSauce extends M_DaoGenerique {
 
     function __construct() {
         $this->nomTable = "SAUCE";
@@ -19,7 +19,7 @@ class M_DaoBoisson extends M_DaoGenerique {
      */
     public function enregistrementVersObjet($enreg) {
         //on construit l'objet Specialite
-        $retour = new M_DaoBoisson($enreg['IDSAUCE'], $enreg['NOMSAUCE']);
+        $retour = new M_Sauce($enreg['IDSAUCE'], $enreg['NOMSAUCE']);
         return $retour;
     }
 

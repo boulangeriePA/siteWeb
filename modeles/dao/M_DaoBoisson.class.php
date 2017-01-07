@@ -20,7 +20,7 @@ class M_DaoBoisson extends M_DaoGenerique {
      */
     public function enregistrementVersObjet($enreg) {
         //on construit l'objet Specialite
-        $retour = new M_DaoBoisson($enreg['IDPRODUIT'], $enreg['NOMPRODUIT'], $enreg['VOLUME']);
+        $retour = new M_Boisson($enreg['IDPRODUIT'], $enreg['NOMPRODUIT'], $enreg['VOLUME']);
         return $retour;
     }
 

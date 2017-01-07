@@ -20,7 +20,7 @@ class M_DaoContenir extends M_DaoGenerique {
      */
     public function enregistrementVersObjet($enreg) {
         //on construit l'objet Specialite
-        $retour = new M_DaoContenir($enreg['IDINGREDIENT'], $enreg['IDPRODUIT']);
+        $retour = new M_Contenir($enreg['IDINGREDIENT'], $enreg['IDPRODUIT']);
         return $retour;
     }
 

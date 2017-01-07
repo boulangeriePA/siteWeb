@@ -19,7 +19,7 @@ class M_DaoProduit extends M_DaoGenerique {
      * @return objet :  instance de la classe métier, initialisée d'après les valeurs de l'enregistrement 
      */
     public function enregistrementVersObjet($enreg) {
-        $retour = new M_DaoProduit($enreg['idProduit'], $enreg['nomProduit']);
+        $retour = new M_Produit($enreg['idProduit'], $enreg['nomProduit']);
         return $retour;
     }
 

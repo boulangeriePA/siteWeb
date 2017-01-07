@@ -5,10 +5,10 @@
  *
  * @author arichard
  */
-abstract class M_Produit {
+class M_Produit {
 
-    protected $idProduit; // type : int
-    protected $nomProduit; // type : String
+    private $idProduit; // type : int
+    private $nomProduit; // type : String
 
     function __construct($idProduit, $nomProduit) {
         $this->idProduit = $idProduit;

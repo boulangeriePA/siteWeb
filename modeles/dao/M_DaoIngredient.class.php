@@ -19,7 +19,7 @@ class M_DaoIngredient extends M_DaoGenerique {
      */
     public function enregistrementVersObjet($enreg) {
         //on construit l'objet Specialite
-        $retour = new M_DaoBoisson($enreg['IDINGREDIENT'], $enreg['NOMINGREDIENT']);
+        $retour = new M_Ingredient($enreg['IDINGREDIENT'], $enreg['NOMINGREDIENT']);
         return $retour;
     }
 

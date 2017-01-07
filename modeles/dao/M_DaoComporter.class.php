@@ -20,7 +20,7 @@ class M_DaoComporter extends M_DaoGenerique {
      */
     public function enregistrementVersObjet($enreg) {
         //on construit l'objet Specialite
-        $retour = new M_DaoComporter($enreg['NB'], $enreg['IDMENU'], $enreg['IDCOMMANDE']);
+        $retour = new M_Comporter($enreg['NB'], $enreg['IDMENU'], $enreg['IDCOMMANDE']);
         return $retour;
     }
 

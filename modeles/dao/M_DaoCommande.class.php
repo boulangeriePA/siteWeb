@@ -27,7 +27,7 @@ class M_DaoCommande extends M_DaoGenerique {
             $leTypeRetrait = $daoTypeRetrait->getOneById($enreg['IDTYPERETRAIT']);
         }
         
-        $retour = new M_DaoCommande($enreg['IDCOMMANDE'], $enreg['DATEHEURE'], $enreg['HEURERETRAIT'], $enreg['IDUSER'], $leTypeRetrait);
+        $retour = new M_Commande($enreg['IDCOMMANDE'], $enreg['DATEHEURE'], $enreg['HEURERETRAIT'], $enreg['IDUSER'], $leTypeRetrait);
         return $retour;
     }
 

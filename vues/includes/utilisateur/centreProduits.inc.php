@@ -32,14 +32,12 @@
 
 <table border="1px">
     <?php
-    /*
       foreach ($this->lireDonnee('lesProduits') as $unProduit) {
       echo'<tr>';
       echo'<td>' . $unProduit->getIdProduit() . '</td>';
       echo'<td>' . $unProduit->getNomProduit() . '</td>';
       echo'</tr>';
       }
-     */
     ?>
 </table>
 
