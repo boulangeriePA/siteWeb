@@ -8,6 +8,6 @@ define('VERSION_APPLICATION', '2014/2015 - PPE');
 //define('USER', 'arichard');
 //define('MDP', 'bddarichard');
 
-define('DSN', 'mysql:host=localhost;dbname=gestage');
+define('DSN', 'mysql:host=localhost;dbname=boulangeriePA');
 define('USER', 'root');
 define('MDP', '');
