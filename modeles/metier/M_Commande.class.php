@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Description of M_Commande
  *
@@ -7,31 +8,21 @@
 class M_Commande {
 
     private $idCommande; // type : int
-    private $retrait; // type : booléen
-    private $numero; //type : int
     private $dateHeure; //type : datetime
     private $heureRetrait; //type : date
     private $idUser; //type : int
+    private $typeRetrait; //objet TypeRetrait
 
-    function __construct($idCommande, $retrait, $numero, $dateHeure, $heureRetrait, $idUser) {
+    function __construct($idCommande, $dateHeure, $heureRetrait, $idUser, $typeRetrait) {
         $this->idCommande = $idCommande;
-        $this->retrait = $retrait;
-        $this->numero = $numero;
         $this->dateHeure = $dateHeure;
         $this->heureRetrait = $heureRetrait;
         $this->idUser = $idUser;
+        $this->typeRetrait = $typeRetrait;
     }
 
     function getIdCommande() {
         return $this->idCommande;
-    }
-
-    function getRetrait() {
-        return $this->retrait;
-    }
-
-    function getNumero() {
-        return $this->numero;
     }
 
     function getDateHeure() {
@@ -46,16 +37,12 @@ class M_Commande {
         return $this->idUser;
     }
 
+    function getTypeRetrait() {
+        return $this->typeRetrait;
+    }
+
     function setIdCommande($idCommande) {
         $this->idCommande = $idCommande;
-    }
-
-    function setRetrait($retrait) {
-        $this->retrait = $retrait;
-    }
-
-    function setNumero($numero) {
-        $this->numero = $numero;
     }
 
     function setDateHeure($dateHeure) {
@@ -68,6 +55,10 @@ class M_Commande {
 
     function setIdUser($idUser) {
         $this->idUser = $idUser;
+    }
+
+    function setTypeRetrait($typeRetrait) {
+        $this->typeRetrait = $typeRetrait;
     }
 
 }

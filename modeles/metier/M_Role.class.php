@@ -3,44 +3,32 @@
 /**
  * Description of M_Role
  *
- * @author btssio
+ * @author arichard
  */
 class M_Role {
 
-    private $id; // type : int
-    private $rang; // type : int
-    private $libelle; // ADMINISTRATEUR, PROFESSEUR, ETUDIANT, UTILISATEUR, CONTACT
+    private $idRole; // type : int
+    private $nomRole; // ADMINISTRATEUR, UTILISATEUR
 
-    function __construct($id, $rang, $libelle) {
-        $this->id = $id;
-        $this->rang = $rang;
-        $this->libelle = $libelle;
-    }
-    
-    public function getId() {
-        return $this->id;
+    function __construct($idRole, $nomRole) {
+        $this->idRole = $idRole;
+        $this->nomRole = $nomRole;
     }
 
-    public function getRang() {
-        return $this->rang;
+    function getIdRole() {
+        return $this->idRole;
     }
 
-    public function getLibelle() {
-        return $this->libelle;
+    function getNomRole() {
+        return $this->nomRole;
     }
 
-    public function setId($id) {
-        $this->id = $id;
+    function setIdRole($idRole) {
+        $this->idRole = $idRole;
     }
 
-    public function setRang($rang) {
-        $this->rang = $rang;
+    function setNomRole($nomRole) {
+        $this->nomRole = $nomRole;
     }
 
-    public function setLibelle($libelle) {
-        $this->libelle = $libelle;
-    }
-
-    
-    
 }

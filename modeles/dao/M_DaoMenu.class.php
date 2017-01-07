@@ -1,15 +1,15 @@
 <?php
 
 /**
- * Description of M_DaoCommande
+ * Description of M_DaoMenu
  *
  * @author arichard
  */
-class M_DaoCommande extends M_DaoGenerique {
+class M_DaoMenu extends M_DaoGenerique {
 
     function __construct() {
-        $this->nomTable = "COMMANDE";
-        $this->nomClefPrimaire = "IDCOMMANDE";
+        $this->nomTable = "MENU";
+        $this->nomClefPrimaire = "IDMENU";
     }
 
     /**
@@ -19,15 +19,7 @@ class M_DaoCommande extends M_DaoGenerique {
      * @return objet :  instance de la classe métier, initialisée d'après les valeurs de l'enregistrement 
      */
     public function enregistrementVersObjet($enreg) {
-        // on instancie l'objet TypeRetrait s'il y a lieu
-        $leTypeRetrait = null;
-        if (isset($enreg['NOMTYPERETRAIT'])) {
-            $daoTypeRetrait = new M_DaoRole();
-            $daoTypeRetrait->setPdo($this->pdo);
-            $leTypeRetrait = $daoTypeRetrait->getOneById($enreg['IDTYPERETRAIT']);
-        }
-        
-        $retour = new M_DaoCommande($enreg['IDCOMMANDE'], $enreg['DATEHEURE'], $enreg['HEURERETRAIT'], $enreg['IDUSER'], $leTypeRetrait);
+        $retour = new M_DaoProduit($enreg['IDMENU'], $enreg['PRIXMENU'], $enreg['NOMMENU']);
         return $retour;
     }
 
@@ -39,18 +31,10 @@ class M_DaoCommande extends M_DaoGenerique {
     public function objetVersEnregistrement($objetMetier) {
         // construire un tableau des paramètres d'insertion ou de modification
         // l'ordre des valeurs est important : il correspond à celui des paramètres de la requête SQL
-        // le type de retrait sera mis à jour séparément
-        if (!is_null($objetMetier->getRole())) {
-            $idTypeRetrait = $objetMetier->getRole()->getId();
-        } else {
-            $idTypeRetrait = 1; // "Sur place"
-        }
         $retour = array(
-        ':idCommande' => $objetMetier->getIdCommande(),
-        ':dateHeure' => $objetMetier->getDateHeure(),
-        ':heureRetrait' => $objetMetier->getHeureRetrait(),
-        ':idUser' => $objetMetier->getIdUser(),
-        ':idTypeRetrait' => $idTypeRetrait
+            ':idMenu' => $objetMetier->getIdMenu(),
+            ':prixMenu' => $objetMetier->getPrixMenu(),
+            ':nomMenu' => $objetMetier->getNomMenu()
         );
         return $retour;
     }
@@ -59,10 +43,7 @@ class M_DaoCommande extends M_DaoGenerique {
         $retour = FALSE;
         try {
             // Requête textuelle paramétrée (paramètres nommés)
-            $sql = "INSERT INTO $this->nomTable (";
-            $sql .= "DATEHEURE, HEURERETRAIT, IDUSER, IDTYPERETRAIT) ";
-            $sql .= "VALUES (";
-            $sql .= ":dateHeure, :heureRetrait, :idUser, :idTypeRetrait)";
+            $sql = "INSERT INTO $this->nomTable (PRIXMENU, NOMMENU) VALUES (:prixMenu, :nomMenu)";
 //            var_dump($sql);
             // préparer la requête PDO
             $queryPrepare = $this->pdo->prepare($sql);
@@ -82,11 +63,9 @@ class M_DaoCommande extends M_DaoGenerique {
         try {
             // Requête textuelle paramétrée (paramètres nommés)
             $sql = "UPDATE $this->nomTable SET ";
-            $sql .= "DATEHEURE = :dateHeure, ";
-            $sql .= "HEURERETRAIT = :heureRetrait, ";
-            $sql .= "IDUSER = :idUser, ";
-            $sql .= "IDTYPERETRAIT = :idTypeRetrait ";
-            $sql .= "WHERE IDCOMMANDE = :id";
+            $sql .= "PRIXMENU = :prixMenu, ";
+            $sql .= "NOMMENU = :nomMenu ";
+            $sql .= "WHERE IDMENU = :id";
 //            var_dump($sql);
             // préparer la requête PDO
             $queryPrepare = $this->pdo->prepare($sql);
@@ -105,18 +84,18 @@ class M_DaoCommande extends M_DaoGenerique {
 
     /**
      * Retourne toutes les données en rapport avec l'ID de la commande en paramètre
-     * @param type $idCommande
+     * @param type $idMenu
      * @return array $retour
      */
-    public function selectOne($idCommande) {
+    public function selectOne($idMenu) {
         $retour = null;
         try {
             //requete
-            $sql = "SELECT * FROM $this->nomTable WHERE idCommande = :id";
+            $sql = "SELECT * FROM $this->nomTable WHERE idMenu = :id";
             //préparer la requête PDO
             $queryPrepare = $this->pdo->prepare($sql);
             //execution de la  requete
-            if ($queryPrepare->execute(array(':id' => $idCommande))) {
+            if ($queryPrepare->execute(array(':id' => $idMenu))) {
                 // si la requete marche
                 $enregistrement = $queryPrepare->fetch(PDO::FETCH_ASSOC);
                 $retour = $this->enregistrementVersObjet($enregistrement);
