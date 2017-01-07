@@ -1,11 +1,15 @@
 <?php
 
-class M_DaoContact_Organisation extends M_DaoGenerique {
+/**
+ * Description of M_DaoCommande
+ *
+ * @author arichard
+ */
+class M_DaoCommande extends M_DaoGenerique {
 
     function __construct() {
-        $this->nomTable = "CONTACT_ORGANISATION";
-        $this->nomClefPrimaireIdOrganisation = "IDORGANISATION";
-        $this->nomClefPrimaireIdContact = "IDCONTACT";
+        $this->nomTable = "COMMANDE";
+        $this->nomClefPrimaire = "IDCOMMANDE";
     }
 
     /**
@@ -15,7 +19,7 @@ class M_DaoContact_Organisation extends M_DaoGenerique {
      * @return objet :  instance de la classe métier, initialisée d'après les valeurs de l'enregistrement 
      */
     public function enregistrementVersObjet($enreg) {
-        $retour = new M_Contact_Organisation($enreg['IDORGANISATION'], $enreg['IDCONTACT'], $enreg['FONCTION']);
+        $retour = new M_DaoCommande($enreg['IDCOMMANDE'], $enreg['RETRAIT'], $enreg['NUMERO'], $enreg['DATEHEURE'], $enreg['HEURERETRAIT'], $enreg['IDUSER']);
         return $retour;
     }
 
@@ -28,9 +32,12 @@ class M_DaoContact_Organisation extends M_DaoGenerique {
         // construire un tableau des paramètres d'insertion ou de modification
         // l'ordre des valeurs est important : il correspond à celui des paramètres de la requête SQL
         $retour = array(
-            ':idOrganisation' => $objetMetier->getIdOrganisation(),
-            ':idContact' => $objetMetier->getIdContact(),
-            ':fonction' => $objetMetier->getFonction()
+            ':idCommande' => $objetMetier->getIdCommande(),
+            ':retrait' => $objetMetier->getRetrait(),
+            ':numero' => $objetMetier->getNumero(),
+            ':dateHeure' => $objetMetier->getDateHeure(),
+            ':heureRetrait' => $objetMetier->getHeureRetrait(),
+            ':idUser' => $objetMetier->getIdUser()
         );
         return $retour;
     }
@@ -40,9 +47,9 @@ class M_DaoContact_Organisation extends M_DaoGenerique {
         try {
             // Requête textuelle paramétrée (paramètres nommés)
             $sql = "INSERT INTO $this->nomTable (";
-            $sql .= "IDORGANISATION, IDCONTACT, FONCTION) ";
+            $sql .= "RETRAIT, NUMERO, DATEHEURE, HEURERETRAIT, IDUSER) ";
             $sql .= "VALUES (";
-            $sql .= ":idOrganisation, :idContact, :fonction)";
+            $sql .= ":retrait, :numero, :dateHeure, :heureRetrait, :idUser)";
 //            var_dump($sql);
             // préparer la requête PDO
             $queryPrepare = $this->pdo->prepare($sql);
@@ -58,23 +65,46 @@ class M_DaoContact_Organisation extends M_DaoGenerique {
     }
 
     public function update($idMetier, $objetMetier) {
-        return FALSE;
+        $retour = FALSE;
+        try {
+            // Requête textuelle paramétrée (paramètres nommés)
+            $sql = "UPDATE $this->nomTable SET ";
+            $sql .= "RETRAIT = :retrait, ";
+            $sql .= "NUMERO = :numero, ";
+            $sql .= "DATEHEURE = :dateHeure, ";
+            $sql .= "HEURERETRAIT = :heureRetrait, ";
+            $sql .= "IDUSER = :idUser, ";
+            $sql .= "WHERE IDCOMMANDE = :id";
+//            var_dump($sql);
+            // préparer la requête PDO
+            $queryPrepare = $this->pdo->prepare($sql);
+            // préparer la  liste des paramètres la valeur de l'identifiant
+            //  à prendre en compte est celle qui a été passée en paramètre à la méthode
+            $parametres = $this->objetVersEnregistrement($objetMetier);
+            $parametres[':id'] = $idMetier;
+            // exécuter la requête avec les valeurs des paramètres dans un tableau
+            $retour = $queryPrepare->execute($parametres);
+//            debug_query($sql, $parametres);
+        } catch (PDOException $e) {
+            echo get_class($this) . ' - ' . __METHOD__ . ' : ' . $e->getMessage();
+        }
+        return $retour;
     }
 
     /**
-     * Retourne toutes les données en rapport avec l'ID du rôle en paramètre
-     * @param type $idRole
+     * Retourne toutes les données en rapport avec l'ID de la commande en paramètre
+     * @param type $idCommande
      * @return array $retour
      */
-    public function selectOne($idPersonne) {
+    public function selectOne($idCommande) {
         $retour = null;
         try {
             //requete
-            $sql = "SELECT * FROM $this->nomTable WHERE idpersonne= :id";
+            $sql = "SELECT * FROM $this->nomTable WHERE idCommande = :id";
             //préparer la requête PDO
             $queryPrepare = $this->pdo->prepare($sql);
             //execution de la  requete
-            if ($queryPrepare->execute(array(':id' => $idPersonne))) {
+            if ($queryPrepare->execute(array(':id' => $idCommande))) {
                 // si la requete marche
                 $enregistrement = $queryPrepare->fetch(PDO::FETCH_ASSOC);
                 $retour = $this->enregistrementVersObjet($enregistrement);
@@ -85,23 +115,27 @@ class M_DaoContact_Organisation extends M_DaoGenerique {
         return $retour;
     }
 
+    /**
+     * Lire tous les enregistrements d'une table
+     * @return tableau-associatif d'objets : un tableau d'instances de la classe métier
+     */
     function getAll() {
         $retour = null;
-        // Requête textuelle
+// Requête textuelle
         $sql = "SELECT * FROM $this->nomTable";
         try {
-            // préparer la requête PDO
+// préparer la requête PDO
             $queryPrepare = $this->pdo->prepare($sql);
-            // exécuter la requête PDO
+// exécuter la requête PDO
             if ($queryPrepare->execute()) {
-                // si la requête réussit :
-                // initialiser le tableau d'objets à retourner
+// si la requête réussit :
+// initialiser le tableau d'objets à retourner
                 $retour = array();
-                // pour chaque enregistrement retourné par la requête
+// pour chaque enregistrement retourné par la requête
                 while ($enregistrement = $queryPrepare->fetch(PDO::FETCH_ASSOC)) {
-                    // construir un objet métier correspondant
+// construir un objet métier correspondant
                     $unObjetMetier = $this->enregistrementVersObjet($enregistrement);
-                    // ajouter l'objet au tableau
+// ajouter l'objet au tableau
                     $retour[] = $unObjetMetier;
                 }
             }
@@ -110,4 +144,5 @@ class M_DaoContact_Organisation extends M_DaoGenerique {
         }
         return $retour;
     }
+
 }
