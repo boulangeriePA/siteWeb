@@ -1,15 +1,14 @@
 <?php
-
 /**
- * Description of M_DaoCommande
+ * Description of M_DaoIngredient
  *
  * @author arichard
  */
-class M_DaoCommande extends M_DaoGenerique {
+class M_DaoIngredient extends M_DaoGenerique {
 
     function __construct() {
-        $this->nomTable = "COMMANDE";
-        $this->nomClefPrimaire = "IDCOMMANDE";
+        $this->nomTable = "INGREDIENT";
+        $this->nomClefPrimaireIdProduit = "IDINGREDIENT";
     }
 
     /**
@@ -19,15 +18,8 @@ class M_DaoCommande extends M_DaoGenerique {
      * @return objet :  instance de la classe métier, initialisée d'après les valeurs de l'enregistrement 
      */
     public function enregistrementVersObjet($enreg) {
-        // on instancie l'objet TypeRetrait s'il y a lieu
-        $leTypeRetrait = null;
-        if (isset($enreg['NOMTYPERETRAIT'])) {
-            $daoTypeRetrait = new M_DaoRole();
-            $daoTypeRetrait->setPdo($this->pdo);
-            $leTypeRetrait = $daoTypeRetrait->getOneById($enreg['IDTYPERETRAIT']);
-        }
-        
-        $retour = new M_DaoCommande($enreg['IDCOMMANDE'], $enreg['DATEHEURE'], $enreg['HEURERETRAIT'], $enreg['IDUSER'], $leTypeRetrait);
+        //on construit l'objet Specialite
+        $retour = new M_DaoBoisson($enreg['IDINGREDIENT'], $enreg['NOMINGREDIENT']);
         return $retour;
     }
 
@@ -39,18 +31,9 @@ class M_DaoCommande extends M_DaoGenerique {
     public function objetVersEnregistrement($objetMetier) {
         // construire un tableau des paramètres d'insertion ou de modification
         // l'ordre des valeurs est important : il correspond à celui des paramètres de la requête SQL
-        // le type de retrait sera mis à jour séparément
-        if (!is_null($objetMetier->getRole())) {
-            $idTypeRetrait = $objetMetier->getRole()->getId();
-        } else {
-            $idTypeRetrait = 1; // "Sur place"
-        }
         $retour = array(
-        ':idCommande' => $objetMetier->getIdCommande(),
-        ':dateHeure' => $objetMetier->getDateHeure(),
-        ':heureRetrait' => $objetMetier->getHeureRetrait(),
-        ':idUser' => $objetMetier->getIdUser(),
-        ':idTypeRetrait' => $idTypeRetrait
+            ':idIngredient' => $objetMetier->getIdIngredient(),
+            ':nomIngredient' => $objetMetier->getNomIngredient()
         );
         return $retour;
     }
@@ -59,10 +42,7 @@ class M_DaoCommande extends M_DaoGenerique {
         $retour = FALSE;
         try {
             // Requête textuelle paramétrée (paramètres nommés)
-            $sql = "INSERT INTO $this->nomTable (";
-            $sql .= "DATEHEURE, HEURERETRAIT, IDUSER, IDTYPERETRAIT) ";
-            $sql .= "VALUES (";
-            $sql .= ":dateHeure, :heureRetrait, :idUser, :idTypeRetrait)";
+            $sql = "INSERT INTO $this->nomTable (NOMINGREDIENT) VALUES (:nomIngredient)";
 //            var_dump($sql);
             // préparer la requête PDO
             $queryPrepare = $this->pdo->prepare($sql);
@@ -82,11 +62,8 @@ class M_DaoCommande extends M_DaoGenerique {
         try {
             // Requête textuelle paramétrée (paramètres nommés)
             $sql = "UPDATE $this->nomTable SET ";
-            $sql .= "DATEHEURE = :dateHeure, ";
-            $sql .= "HEURERETRAIT = :heureRetrait, ";
-            $sql .= "IDUSER = :idUser, ";
-            $sql .= "IDTYPERETRAIT = :idTypeRetrait ";
-            $sql .= "WHERE IDCOMMANDE = :id";
+            $sql .= "NOMINGREDIENT = :nomIngredient ";
+            $sql .= "WHERE IDINGREDIENT = :id";
 //            var_dump($sql);
             // préparer la requête PDO
             $queryPrepare = $this->pdo->prepare($sql);
@@ -104,54 +81,25 @@ class M_DaoCommande extends M_DaoGenerique {
     }
 
     /**
-     * Retourne toutes les données en rapport avec l'ID de la commande en paramètre
-     * @param type $idCommande
+     * Retourne toutes les données en rapport avec l'ID du produit en paramètre
+     * @param type $idIngredient
      * @return array $retour
      */
-    public function selectOne($idCommande) {
+    public function selectOne($idIngredient) {
         $retour = null;
         try {
             //requete
-            $sql = "SELECT * FROM $this->nomTable WHERE idCommande = :id";
+            $sql = "SELECT * FROM $this->nomTable WHERE idIngredient = :id";
             //préparer la requête PDO
+
             $queryPrepare = $this->pdo->prepare($sql);
             //execution de la  requete
-            if ($queryPrepare->execute(array(':id' => $idCommande))) {
+            if ($queryPrepare->execute(array(':id' => $idIngredient))) {
                 // si la requete marche
                 $enregistrement = $queryPrepare->fetch(PDO::FETCH_ASSOC);
                 $retour = $this->enregistrementVersObjet($enregistrement);
             }
         } catch (Exception $e) {
-            echo get_class($this) . ' - ' . __METHOD__ . ' : ' . $e->getMessage();
-        }
-        return $retour;
-    }
-
-    /**
-     * Lire tous les enregistrements d'une table
-     * @return tableau-associatif d'objets : un tableau d'instances de la classe métier
-     */
-    function getAll() {
-        $retour = null;
-// Requête textuelle
-        $sql = "SELECT * FROM $this->nomTable";
-        try {
-// préparer la requête PDO
-            $queryPrepare = $this->pdo->prepare($sql);
-// exécuter la requête PDO
-            if ($queryPrepare->execute()) {
-// si la requête réussit :
-// initialiser le tableau d'objets à retourner
-                $retour = array();
-// pour chaque enregistrement retourné par la requête
-                while ($enregistrement = $queryPrepare->fetch(PDO::FETCH_ASSOC)) {
-// construir un objet métier correspondant
-                    $unObjetMetier = $this->enregistrementVersObjet($enregistrement);
-// ajouter l'objet au tableau
-                    $retour[] = $unObjetMetier;
-                }
-            }
-        } catch (PDOException $e) {
             echo get_class($this) . ' - ' . __METHOD__ . ' : ' . $e->getMessage();
         }
         return $retour;

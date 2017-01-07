@@ -8,18 +8,18 @@
 class M_User {
 
     private $idUser; //type : int
-    private $nom; //type : String
-    private $prenom; //type : String
+    private $nomUser; //type : String
+    private $prenomUser; //type : String
     private $email; //type : String
     private $tel; //type : String
     private $login; //type : String
     private $mdp; //type : String encodé en sha1
     private $role; //objet role
 
-    function __construct($idUser, $nom, $prenom, $email, $tel, $login, $mdp, $role) {
+    function __construct($idUser, $nomUser, $prenomUser, $email, $tel, $login, $mdp, $role) {
         $this->idUser = $idUser;
-        $this->nom = $nom;
-        $this->prenom = $prenom;
+        $this->nomUser = $nomUser;
+        $this->prenomUser = $prenomUser;
         $this->email = $email;
         $this->tel = $tel;
         $this->login = $login;
@@ -31,12 +31,12 @@ class M_User {
         return $this->idUser;
     }
 
-    function getNom() {
-        return $this->nom;
+    function getNomUser() {
+        return $this->nomUser;
     }
 
-    function getPrenom() {
-        return $this->prenom;
+    function getPrenomUser() {
+        return $this->prenomUser;
     }
 
     function getEmail() {
@@ -63,12 +63,12 @@ class M_User {
         $this->idUser = $idUser;
     }
 
-    function setNom($nom) {
-        $this->nom = $nom;
+    function setNomUser($nomUser) {
+        $this->nomUser = $nomUser;
     }
 
-    function setPrenom($prenom) {
-        $this->prenom = $prenom;
+    function setPrenomUser($prenomUser) {
+        $this->prenomUser = $prenomUser;
     }
 
     function setEmail($email) {

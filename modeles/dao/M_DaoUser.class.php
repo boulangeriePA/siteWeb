@@ -29,8 +29,7 @@ class M_DaoUser extends M_DaoGenerique {
 
 // on construit l'objet Personne 
         $retour = new M_Personne(
-                $enreg['IDUSER'], $enreg['NOM'], $enreg['PRENOM'], $enreg['EMAIL'], $enreg['TEL'], $enreg['LOGIN'], $enreg['MDP'], $leRole
-        );
+                $enreg['IDUSER'], $enreg['NOMUSER'], $enreg['PRENOMUSER'], $enreg['EMAIL'], $enreg['TEL'], $enreg['LOGIN'], $enreg['MDP'], $leRole);
         return $retour;
     }
 
@@ -49,8 +48,8 @@ class M_DaoUser extends M_DaoGenerique {
             $idRole = 0; // "Autre" (simple visiteur)
         }
         $retour = array(
-            ':nom' => $objetMetier->getNom(),
-            ':prenom' => $objetMetier->getPrenom(),
+            ':nomUser' => $objetMetier->getNom(),
+            ':prenomUser' => $objetMetier->getPrenom(),
             ':email' => $objetMetier->getEmail(),
             ':tel' => $objetMetier->getTel(),
             ':login' => $objetMetier->getLogin(),
@@ -201,9 +200,9 @@ class M_DaoUser extends M_DaoGenerique {
         try {
             // Requête textuelle paramétrée (paramètres nommés)
             $sql = "INSERT INTO $this->nomTable (";
-            $sql .= "NOM, PRENOM, EMAIL, TEL, LOGIN, MDP, IDROLE) ";
+            $sql .= "NOMUSER, PRENOMUSER, EMAIL, TEL, LOGIN, MDP, IDROLE) ";
             $sql .= "VALUES (";
-            $sql .= ":nom, :prenom, :email, :tel, :login, :mdp, :idRole)";
+            $sql .= ":nomUser, :prenomUser, :email, :tel, :login, :mdp, :idRole)";
 //            var_dump($sql);
             // préparer la requête PDO
             $queryPrepare = $this->pdo->prepare($sql);
@@ -223,8 +222,8 @@ class M_DaoUser extends M_DaoGenerique {
         try {
             // Requête textuelle paramétrée (paramètres nommés)
             $sql = "UPDATE $this->nomTable SET ";
-            $sql .= "NOM = :nom, ";
-            $sql .= "PRENOM = :prenom, ";
+            $sql .= "NOMUSER = :nomUser, ";
+            $sql .= "PRENOMUSER = :prenomUser, ";
             $sql .= "EMAIL = :email, ";
             $sql .= "TEL = :tel, ";
             $sql .= "LOGIN = :login, ";

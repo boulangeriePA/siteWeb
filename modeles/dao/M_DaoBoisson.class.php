@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Description of M_DaoBoisson
  *
@@ -9,7 +10,6 @@ class M_DaoBoisson extends M_DaoGenerique {
     function __construct() {
         $this->nomTable = "BOISSON";
         $this->nomClefPrimaireIdProduit = "IDPRODUIT";
-        $this->nomClefPrimaireVolume = "VOLUME";
     }
 
     /**
@@ -20,7 +20,7 @@ class M_DaoBoisson extends M_DaoGenerique {
      */
     public function enregistrementVersObjet($enreg) {
         //on construit l'objet Specialite
-        $retour = new M_DaoBoisson($enreg['IDPRODUIT'], $enreg['VOLUME']);
+        $retour = new M_DaoBoisson($enreg['IDPRODUIT'], $enreg['NOMPRODUIT'], $enreg['VOLUME']);
         return $retour;
     }
 
@@ -34,6 +34,7 @@ class M_DaoBoisson extends M_DaoGenerique {
         // l'ordre des valeurs est important : il correspond à celui des paramètres de la requête SQL
         $retour = array(
             ':idProduit' => $objetMetier->getIdProduit(),
+            ':nomProduit' => $objetMetier->getNomProduit(),
             ':volume' => $objetMetier->getVolume()
         );
         return $retour;
@@ -43,7 +44,7 @@ class M_DaoBoisson extends M_DaoGenerique {
         $retour = FALSE;
         try {
             // Requête textuelle paramétrée (paramètres nommés)
-            $sql = "INSERT INTO $this->nomTable (VOLUME) VALUES (:volume)";
+            $sql = "INSERT INTO $this->nomTable (NOMPRODUIT, VOLUME) VALUES (:nomProduit, :volume)";
 //            var_dump($sql);
             // préparer la requête PDO
             $queryPrepare = $this->pdo->prepare($sql);
@@ -63,6 +64,7 @@ class M_DaoBoisson extends M_DaoGenerique {
         try {
             // Requête textuelle paramétrée (paramètres nommés)
             $sql = "UPDATE $this->nomTable SET ";
+            $sql .= "NOMPRODUIT = :nomProduit, ";
             $sql .= "VOLUME = :volume ";
             $sql .= "WHERE IDPRODUIT = :id";
 //            var_dump($sql);
@@ -90,7 +92,7 @@ class M_DaoBoisson extends M_DaoGenerique {
         $retour = null;
         try {
             //requete
-            $sql = "SELECT * FROM $this->nomTable WHERE idproduit = :id";
+            $sql = "SELECT * FROM $this->nomTable WHERE idProduit = :id";
             //préparer la requête PDO
 
             $queryPrepare = $this->pdo->prepare($sql);
