@@ -1,10 +1,15 @@
 <?php
-
-class M_DaoSpecialite extends M_DaoGenerique {
+/**
+ * Description of M_DaoAssaisonner
+ *
+ * @author arichard
+ */
+class M_DaoAssaisonner extends M_DaoGenerique {
 
     function __construct() {
-        $this->nomTable = "SPECIALITE";
-        $this->nomClefPrimaire = "IDSPECIALITE";
+        $this->nomTable = "ASSAISONNER";
+        $this->nomClefPrimaireIdProduit = "IDPRODUIT";
+        $this->nomClefPrimaireIdSauce = "IDSAUCE";
     }
 
     /**
@@ -15,7 +20,7 @@ class M_DaoSpecialite extends M_DaoGenerique {
      */
     public function enregistrementVersObjet($enreg) {
         //on construit l'objet Specialite
-        $retour = new M_Specialite($enreg['IDSPECIALITE'], $enreg['LIBELLECOURTSPECIALITE'], $enreg['LIBELLELONGSPECIALITE']);
+        $retour = new M_DaoAssaisonner($enreg['IDPRODUIT'], $enreg['IDSAUCE']);
         return $retour;
     }
 
@@ -28,9 +33,8 @@ class M_DaoSpecialite extends M_DaoGenerique {
         // construire un tableau des paramètres d'insertion ou de modification
         // l'ordre des valeurs est important : il correspond à celui des paramètres de la requête SQL
         $retour = array(
-            ':idSpecialite' => $objetMetier->getIdSpecialite(),
-            ':libelleCourt' => $objetMetier->getLibellecCourt(),
-            ':libelleLong' => $objetMetier->getLibelleLong()
+            ':idProduit' => $objetMetier->getIdProduit(),
+            ':idSauce' => $objetMetier->getIdSauce()
         );
         return $retour;
     }
@@ -44,20 +48,20 @@ class M_DaoSpecialite extends M_DaoGenerique {
     }
 
     /**
-     * Retourne toutes les données en rapport avec l'ID de la spécialité en paramètre
-     * @param type $idSpecialite
+     * Retourne toutes les données en rapport avec l'ID du produit en paramètre
+     * @param type $idProduit
      * @return array $retour
-     */    
-    public function selectOne($idSpecialite) {
+     */
+    public function selectOne($idProduit) {
         $retour = null;
         try {
             //requete
-            $sql = "SELECT * FROM $this->nomTable WHERE idspecialite=" . $idSpecialite;
+            $sql = "SELECT * FROM $this->nomTable WHERE idproduit = :id";
             //préparer la requête PDO
-            
+
             $queryPrepare = $this->pdo->prepare($sql);
             //execution de la  requete
-            if ($queryPrepare->execute(array(':id' => $idSpecialite))) {
+            if ($queryPrepare->execute(array(':id' => $idProduit))) {
                 // si la requete marche
                 $enregistrement = $queryPrepare->fetch(PDO::FETCH_ASSOC);
                 $retour = $this->enregistrementVersObjet($enregistrement);
