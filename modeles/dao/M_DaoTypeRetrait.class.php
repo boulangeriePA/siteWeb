@@ -14,8 +14,8 @@ class M_DaoTypeRetrait extends M_DaoGenerique {
      * @return objet :  instance de la classe métier, initialisée d'après les valeurs de l'enregistrement 
      */
     public function enregistrementVersObjet($enreg) {
-        // on construit l'objet Role 
-        $retour = new M_DaoTypeRetrait($enreg['IDTYPERETRAIT'], $enreg['NOMTYPERETRAIT']);
+        // on construit l'objet TypeRetrait 
+        $retour = new M_DaoTypeRetrait($enreg['idTypeRetrait'], $enreg['nomTypeRetrait']);
         return $retour;
     }
 

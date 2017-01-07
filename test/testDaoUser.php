@@ -2,19 +2,19 @@
 <html>
     <head>
         <meta charset="UTF-8">
-        <title>test DaoPersonne</title>
+        <title>test DaoUser</title>
     </head>
     <body>
         <?php
         require_once("../includes/parametres.inc.php");
         require_once("../includes/fonctions.inc.php");
 
-        $dao = new M_DaoPersonne();
+        $dao = new M_DaoUser();
         $dao->connecter();
 
         //Test de sélection par Id 
         echo "<p>Test de sélection par Id </p>";
-        $role = $dao->getOneById(14);
+        $role = $dao->getOneById(1);
         var_dump($role);
 
         
@@ -25,19 +25,18 @@
         
         //Test de sélection sur le login sans association
         echo "<p>Test de sélection sur le login sans association</p>";
-        $role = $dao->getOneByLogin('admin');
+        $role = $dao->getOneByLogin('bsabaron');
         var_dump($role);
         
         //Test de sélection sur le login avec association
         echo "<p>Test de sélection sur le login avec association</p>";
-        $role = $dao->getOneByLogin('test');
+        $role = $dao->getOneByLogin('ldijoux');
         var_dump($role);
 
         //Test d'insertion
         echo "<p>Test d'insertion</p>";
-        $role = new M_Role(2, 2, "intendant");
-        $spe = new M_Specialite(null, null, null);
-        $role= new M_Personne(0, $spe, $role, "M.", "Hugo", "Victor", "0278901234", "vhugo@free.fr", "0678901234", "", "", "vhugo", "vh");
+        $role = new M_Role(2, "intendant");
+        $role= new M_User(5, "Hugo", "Victor","vhugo@free.fr", "0678901234", "vhugo", "vhugo", $role);
         var_dump($role);
         $dao->insert($role);
         $persLu = $dao->getOneByLogin('vhugo');
@@ -45,9 +44,9 @@
         
         //Test de modification
         echo "<p>Test de modification</p>";
-        $role->setMail("victor.hugo@laposte.net");
-        $role->setCivilite("Monsieur");
-        $enr = $dao->getPdo()->query('SELECT MAX(IDPERSONNE) FROM PERSONNE;')->fetch();
+        $role->setEmail("victor.hugo@laposte.net");
+        $role->setNomUser("uther");
+        $enr = $dao->getPdo()->query('SELECT MAX(IDUSER) FROM USER;')->fetch();
         $id= $enr[0];
         $dao->update($id,$role);
         $persLu = $dao->getOneByLogin('vhugo');
@@ -55,7 +54,7 @@
  
         //Test de suppression
         echo "<p>Test de suppression</p>";
-        $id = $persLu->getId();
+        $id = $persLu->getIdUser();
         echo "Supprimer : ".$id."<br/>";
         $dao->delete($id);
         $persLu = $dao->getOneById($id);
