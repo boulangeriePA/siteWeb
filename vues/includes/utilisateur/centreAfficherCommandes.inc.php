@@ -3,23 +3,19 @@
 <table border="2px" > 
     <tr >
         <th>N° de Commande</th>
-        <th>Produits</th>
-        <th>Nom</th>
-        <th>Date</th>
-        <th>Heure de commande</th>
-        <th>Heure de Retrait</th>
-        <th>Mode de Retrait</th>
+        <th>ID User</th>
+        <th>Date/heure commande</th>
+        <th>heure retrait</th>
+        <th>Type de retrait</th>
     </tr>
     <?php
-    foreach ($this->lireDonnee('lesOrganisations') as $organisation) {
+    foreach ($this->lireDonnee('lesCommandes') as $uneCommande) {
         echo'<tr>';
-        echo'<td>' . $organisation->getNom() . '</td>';
-        echo'<td>' . $organisation->getVille() . '</td>';
-        echo'<td>' . $organisation->getAdresse() . '</td>';
-        echo'<td>' . $organisation->getCp() . '</td>';
-        echo'<td>' . $organisation->getTel() . '</td>';
-        echo'<td>' . $organisation->getFax() . '</td>';
-        echo'<td>' . $organisation->getFormeJuridique() . '</td>';
+        echo'<td>' . $uneCommande->getIdCommande() . '</td>';
+        echo'<td>' . $organisation->getIdUser() . '</td>';
+        echo'<td>' . $organisation->getDateHeure() . '</td>';
+        echo'<td>' . $organisation->getHeureRetrait() . '</td>';        
+        echo'<td>' . $organisation->getTypeRetrait() . '</td>';
         echo'</tr>';
     }
     ?>

@@ -101,44 +101,6 @@ abstract class M_DaoGenerique {
         }
         return $retour;
     }
-    
-    /**
-     * Suppression d'un enregistrement d'après son identifiant
-     * @param identifiant métier de l'objet é détruire
-     * @return 
-     */
-    function delete($idMetier) {
-        $retour = FALSE;
-        try {
-            // Requête textuelle paramétrée 
-            $sql = "DELETE FROM $this->nomTable WHERE $this->nomClefPrimaire = :id";
-            // préparer la  liste des paramètres (1 seul)
-            $parametres = array(':id'=>$idMetier);
-            // préparer la requête PDO
-            $queryPrepare = $this->pdo->prepare($sql);
-            // exécuter la requête avec les valeurs des paramètres (il n'y en a qu'un ici) dans un tableau
-            $retour = $queryPrepare->execute($parametres);
-        } catch (PDOException $e) {
-            echo get_class($this) . ' - ' . __METHOD__ . ' : ' . $e->getMessage();
-        }
-        return $retour;
-    }   
-
-    /**
-     * Insertion d'un nouvel enregistrement
-     * @param $objetMetier objet métier contenant les données nécessaires à l'ajout
-     * @return 
-     */
-    abstract function insert($objetMetier);
-
-    /**
-     * Mise à jour d'un enregistrement d'après son identifiant
-     * @param $idMetier identifiant métier de l'objet à modifier
-     * @param $objetMetier objet métier modifié
-     * @return 
-     */
-    abstract function update($idMetier, $objetMetier);
-
 
     // ACCESSEURS et MUTATEURS
     public function getPdo() {

@@ -8,7 +8,7 @@
         <?php
         require("../includes/fonctions.inc.php");
         $maVue = new V_Vue("../vues/templates/template.inc.php");
-        $maVue->ecrireDonnee('titreVue',"GestStage : Accueil");
+        $maVue->ecrireDonnee('titreVue',"Test Vue");
         var_dump($maVue);
         ?>
     </body>

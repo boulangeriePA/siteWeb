@@ -18,8 +18,8 @@ class M_DaoSandwich extends M_DaoGenerique {
      * @return objet :  instance de la classe métier, initialisée d'après les valeurs de l'enregistrement 
      */
     public function enregistrementVersObjet($enreg) {
-        //on construit l'objet Specialite
-        $retour = new M_DaoSandwich($enreg['IDPRODUIT'], $enreg['NOMPRODUIT'], $enreg['TEMPERATUREPAIN']);
+        //on construit l'objet Sandwich
+        $retour = new M_Sandwich($enreg['idProduit'], $enreg['nomProduit'], $enreg['temperaturePain']);
         return $retour;
     }
 

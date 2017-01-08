@@ -15,7 +15,7 @@ class M_DaoTypeRetrait extends M_DaoGenerique {
      */
     public function enregistrementVersObjet($enreg) {
         // on construit l'objet TypeRetrait 
-        $retour = new M_DaoTypeRetrait($enreg['idTypeRetrait'], $enreg['nomTypeRetrait']);
+        $retour = new M_TypeRetrait($enreg['idTypeRetrait'], $enreg['nomTypeRetrait']);
         return $retour;
     }
 
@@ -43,7 +43,7 @@ class M_DaoTypeRetrait extends M_DaoGenerique {
     }
 
     /**
-     * Retourne toutes les données en rapport avec l'ID du rôle en paramètre
+     * Retourne toutes les données en rapport avec l'ID du type de retrait en paramètre
      * @param type $idTypeRetrait
      * @return array $retour
      */
