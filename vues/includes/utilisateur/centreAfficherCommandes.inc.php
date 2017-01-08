@@ -3,7 +3,6 @@
 <table border="2px" > 
     <tr >
         <th>N° de Commande</th>
-        <th>ID User</th>
         <th>Date/heure commande</th>
         <th>heure retrait</th>
         <th>Type de retrait</th>
@@ -12,10 +11,9 @@
     foreach ($this->lireDonnee('lesCommandes') as $uneCommande) {
         echo'<tr>';
         echo'<td>' . $uneCommande->getIdCommande() . '</td>';
-        echo'<td>' . $organisation->getIdUser() . '</td>';
-        echo'<td>' . $organisation->getDateHeure() . '</td>';
-        echo'<td>' . $organisation->getHeureRetrait() . '</td>';        
-        echo'<td>' . $organisation->getTypeRetrait() . '</td>';
+        echo'<td>' . $uneCommande->getDateHeure() . '</td>';
+        echo'<td>' . $uneCommande->getHeureRetrait() . '</td>';        
+        echo'<td>' . $uneCommande->getTypeRetrait() . '</td>';
         echo'</tr>';
     }
     ?>

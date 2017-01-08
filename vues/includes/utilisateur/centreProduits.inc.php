@@ -6,11 +6,58 @@
     <li class="onglet_2"><input type="button" id="boutonBoisson" value="Boissons"></li>    
 </ul> 
 
-<div id="divSandwich" style="display: block">sandwich !</div>
+<div id="divSandwich" style="display: block">Nos Sandwich !
+    <table border="1px">
+        <tr>
+            <th>Sandwich</th>
+            <th>température pain</th>
+        </tr>
+        <?php
+        foreach ($this->lireDonnee('lesSandwichs') as $unSandwich) {
+            echo'<tr>';
+            echo'<td>' . $unSandwich->getNomProduit() . '</td>';
+            if($unSandwich->getTemperaturePain()==0){
+                echo'<td>froid</td>';
+            }  elseif ($unSandwich->getTemperaturePain()==1) {
+                echo'<td>chaud</td>';
+            }
+            echo'</tr>';
+        }
+        ?>
+    </table>
+</div>
 
-<div id="divDessert" style="display: none">dessert !</div>
+<div id="divDessert" style="display: none">Nos Desserts !
+    <table border="1px">
+        <tr>
+            <th>Dessert</th>
+        </tr>
+        <?php
+        foreach ($this->lireDonnee('lesDesserts') as $unDessert) {
+            echo'<tr>';
+            echo'<td>' . $unDessert->getNomProduit() . '</td>';
+            echo'</tr>';
+        }
+        ?>
+    </table>
+</div>
 
-<div id="divBoisson" style="display: none">boisson !</div>
+<div id="divBoisson" style="display: none">Nos Boissons !
+    <table border="1px">
+        <tr>
+            <th>Boisson</th>
+            <th>Volume</th>
+        </tr>
+        <?php
+        foreach ($this->lireDonnee('lesBoissons') as $uneBoisson) {
+            echo'<tr>';
+            echo'<td>' . $uneBoisson->getNomProduit() . '</td>';
+            echo'<td>' . $uneBoisson->getVolume() . ' cl</td>';
+            echo'</tr>';
+        }
+        ?>
+    </table>
+</div>
 
 <script>
     document.querySelector("#boutonSandwich").onclick = function() {
@@ -29,17 +76,6 @@
         document.querySelector("#divBoisson").style.display = "block";
     }
 </script>
-
-<table border="1px">
-    <?php
-      foreach ($this->lireDonnee('lesProduits') as $unProduit) {
-      echo'<tr>';
-      echo'<td>' . $unProduit->getIdProduit() . '</td>';
-      echo'<td>' . $unProduit->getNomProduit() . '</td>';
-      echo'</tr>';
-      }
-    ?>
-</table>
 
 <?php
 if (!is_null($this->lireDonnee('message'))) {

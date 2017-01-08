@@ -9,7 +9,7 @@ class M_DaoCommande extends M_DaoGenerique {
 
     function __construct() {
         $this->nomTable = "COMMANDE";
-        $this->nomClefPrimaire = "IDCOMMANDE";
+        $this->nomClefPrimaire = "idCommande";
     }
 
     /**
@@ -121,6 +121,35 @@ class M_DaoCommande extends M_DaoGenerique {
                 $retour = $this->enregistrementVersObjet($enregistrement);
             }
         } catch (Exception $e) {
+            echo get_class($this) . ' - ' . __METHOD__ . ' : ' . $e->getMessage();
+        }
+        return $retour;
+    }
+    
+    function getCommandesByLogin($login) {
+        $retour = null;
+// Requête textuelle
+        $sql = "SELECT * FROM $this->nomTable ";
+        $sql .= "INNER JOIN user u ON $this->nomTable.idUser=u.idUser ";
+        $sql .= "INNER JOIN typeRetrait tr ON  $this->nomTable.idTypeRetrait=tr.idTypeRetrait ";
+        $sql .= "WHERE u.login = :login";
+        try {
+// préparer la requête PDO
+            $queryPrepare = $this->pdo->prepare($sql);
+// exécuter la requête PDO
+            if ($queryPrepare->execute(array(':login' => $login))) {
+// si la requête réussit :
+// initialiser le tableau d'objets à retourner
+                $retour = array();
+// pour chaque enregistrement retourné par la requête
+                while ($enregistrement = $queryPrepare->fetch(PDO::FETCH_ASSOC)) {
+// construir un objet métier correspondant
+                    $unObjetMetier = $this->enregistrementVersObjet($enregistrement);
+// ajouter l'objet au tableau
+                    $retour[] = $unObjetMetier;
+                }
+            }
+        } catch (PDOException $e) {
             echo get_class($this) . ' - ' . __METHOD__ . ' : ' . $e->getMessage();
         }
         return $retour;

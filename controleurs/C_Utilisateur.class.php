@@ -149,8 +149,8 @@ class C_Utilisateur extends C_ControleurGenerique {
         $this->vue->ecrireDonnee('titreVue', 'Mes commandes');
         $daoCommande = new M_DaoCommande();
         $daoCommande->connecter();
-        //récupération de la liste des organisations
-        $commandes = $daoCommande->getAll();
+        //récupération de la liste des commandes
+        $commandes = $daoCommande->getCommandesByLogin(MaSession::get('login'));
         $this->vue->ecrireDonnee('lesCommandes', $commandes);
         $daoCommande->deconnecter();
         // transmettre le login        
@@ -179,12 +179,30 @@ class C_Utilisateur extends C_ControleurGenerique {
     function produits() {
         $this->vue = new V_Vue("../vues/templates/template.inc.php");
         $this->vue->ecrireDonnee('titreVue', 'Nos Produits');
-        $daoProduit = new M_DaoProduit();
-        $daoProduit->connecter();
+        
+        $daoSandwich = new M_DaoSandwich();
+        $daoSandwich->connecter();
+        //récupération de la liste des sandwichs
+        $sandwichs = $daoSandwich->getSandwichs();
+        $this->vue->ecrireDonnee('lesSandwichs', $sandwichs);
+        $daoSandwich->deconnecter();
+        
+        /*
+        $daoDessert = new M_DaoDessert();
+        $daoDessert->connecter();
         //récupération de la liste des organisations
-        $produits = $daoProduit->getAll();
-        $this->vue->ecrireDonnee('lesProduits', $produits);
-        $daoProduit->deconnecter();
+        $desserts = $daoDessert->getDesserts();
+        $this->vue->ecrireDonnee('lesDesserts', $desserts);
+        $daoDessert->deconnecter();
+        
+        $daoBoisson = new M_DaoBoisson();
+        $daoBoisson->connecter();
+        //récupération de la liste des organisations
+        $boissons = $daoBoisson->getBoissons();
+        $this->vue->ecrireDonnee('lesBoissons', $boissons);
+        $daoBoisson->deconnecter();
+         */
+        
         // transmettre le login        
         $this->vue->ecrireDonnee('loginAuthentification', MaSession::get('login'));
         // vue centrale à inclure
