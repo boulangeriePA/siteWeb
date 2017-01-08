@@ -22,7 +22,7 @@ class M_DaoCommande extends M_DaoGenerique {
         // on instancie l'objet TypeRetrait s'il y a lieu
         $leTypeRetrait = null;
         if (isset($enreg['nomTypeRetrait'])) {
-            $daoTypeRetrait = new M_DaoRole();
+            $daoTypeRetrait = new M_DaoTypeRetrait();
             $daoTypeRetrait->setPdo($this->pdo);
             $leTypeRetrait = $daoTypeRetrait->getOneById($enreg['idTypeRetrait']);
         }
@@ -39,13 +39,12 @@ class M_DaoCommande extends M_DaoGenerique {
         // construire un tableau des paramètres d'insertion ou de modification
         // l'ordre des valeurs est important : il correspond à celui des paramètres de la requête SQL
         // le type de retrait sera mis à jour séparément
-        if (!is_null($objetMetier->getRole())) {
-            $idTypeRetrait = $objetMetier->getRole()->getId();
+        if (!is_null($objetMetier->getTypeRetrait())) {
+            $idTypeRetrait = $objetMetier->getTypeRetrait()->getIdTypeRetrait();
         } else {
             $idTypeRetrait = 1; // "Sur place"
         }
         $retour = array(
-            ':idCommande' => $objetMetier->getIdCommande(),
             ':dateHeure' => $objetMetier->getDateHeure(),
             ':heureRetrait' => $objetMetier->getHeureRetrait(),
             ':idUser' => $objetMetier->getIdUser(),

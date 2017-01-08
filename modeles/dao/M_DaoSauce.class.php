@@ -32,7 +32,6 @@ class M_DaoSauce extends M_DaoGenerique {
         // construire un tableau des paramètres d'insertion ou de modification
         // l'ordre des valeurs est important : il correspond à celui des paramètres de la requête SQL
         $retour = array(
-            ':idSauce' => $objetMetier->getIdSauce(),
             ':nomSauce' => $objetMetier->getNomSauce()
         );
         return $retour;

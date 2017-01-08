@@ -28,18 +28,51 @@ class M_DaoTypeRetrait extends M_DaoGenerique {
         // construire un tableau des paramètres d'insertion ou de modification
         // l'ordre des valeurs est important : il correspond à celui des paramètres de la requête SQL
         $retour = array(
-            ':idTypeRetrait' => $objetMetier->getIdTypeRetrait(),
             ':nomTypeRetrait' => $objetMetier->getNomTypeRetrait()
         );
         return $retour;
     }
 
     public function insert($objetMetier) {
-        return FALSE;
+        $retour = FALSE;
+        try {
+            // Requête textuelle paramétrée (paramètres nommés)
+            $sql = "INSERT INTO $this->nomTable (nomTypeRetrait) VALUES (:nomTypeRetrait)";
+//            var_dump($sql);
+            // préparer la requête PDO
+            $queryPrepare = $this->pdo->prepare($sql);
+            // préparer la  liste des paramètres, avec l'identifiant en dernier
+            $parametres = $this->objetVersEnregistrement($objetMetier);
+            // exécuter la requête avec les valeurs des paramètres dans un tableau
+            $retour = $queryPrepare->execute($parametres);
+//            debug_query($sql, $parametres);
+        } catch (PDOException $e) {
+            echo get_class($this) . ' - ' . __METHOD__ . ' : ' . $e->getMessage();
+        }
+        return $retour;
     }
 
     public function update($idMetier, $objetMetier) {
-        return FALSE;
+        $retour = FALSE;
+        try {
+            // Requête textuelle paramétrée (paramètres nommés)
+            $sql = "UPDATE $this->nomTable SET ";
+            $sql .= "nomTypeRetrait = :nomTypeRetrait ";
+            $sql .= "WHERE idTypeRetrait = :id";
+//            var_dump($sql);
+            // préparer la requête PDO
+            $queryPrepare = $this->pdo->prepare($sql);
+            // préparer la  liste des paramètres la valeur de l'identifiant
+            //  à prendre en compte est celle qui a été passée en paramètre à la méthode
+            $parametres = $this->objetVersEnregistrement($objetMetier);
+            $parametres[':id'] = $idMetier;
+            // exécuter la requête avec les valeurs des paramètres dans un tableau
+            $retour = $queryPrepare->execute($parametres);
+//            debug_query($sql, $parametres);
+        } catch (PDOException $e) {
+            echo get_class($this) . ' - ' . __METHOD__ . ' : ' . $e->getMessage();
+        }
+        return $retour;
     }
 
     /**

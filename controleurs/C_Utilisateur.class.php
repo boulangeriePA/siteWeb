@@ -187,7 +187,7 @@ class C_Utilisateur extends C_ControleurGenerique {
         $this->vue->ecrireDonnee('lesSandwichs', $sandwichs);
         $daoSandwich->deconnecter();
         
-        /*
+        
         $daoDessert = new M_DaoDessert();
         $daoDessert->connecter();
         //récupération de la liste des organisations
@@ -201,7 +201,7 @@ class C_Utilisateur extends C_ControleurGenerique {
         $boissons = $daoBoisson->getBoissons();
         $this->vue->ecrireDonnee('lesBoissons', $boissons);
         $daoBoisson->deconnecter();
-         */
+         
         
         // transmettre le login        
         $this->vue->ecrireDonnee('loginAuthentification', MaSession::get('login'));

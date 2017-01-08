@@ -13,7 +13,7 @@
         echo'<td>' . $uneCommande->getIdCommande() . '</td>';
         echo'<td>' . $uneCommande->getDateHeure() . '</td>';
         echo'<td>' . $uneCommande->getHeureRetrait() . '</td>';        
-        echo'<td>' . $uneCommande->getTypeRetrait() . '</td>';
+        echo'<td>' . $uneCommande->getTypeRetrait()->getNomTypeRetrait() . '</td>';
         echo'</tr>';
     }
     ?>
