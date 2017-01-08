@@ -18,8 +18,8 @@ class M_DaoIngredient extends M_DaoGenerique {
      * @return objet :  instance de la classe métier, initialisée d'après les valeurs de l'enregistrement 
      */
     public function enregistrementVersObjet($enreg) {
-        //on construit l'objet Specialite
-        $retour = new M_Ingredient($enreg['IDINGREDIENT'], $enreg['NOMINGREDIENT']);
+        //on construit l'objet Ingredient
+        $retour = new M_Ingredient($enreg['idIngredient'], $enreg['nomIngredient']);
         return $retour;
     }
 

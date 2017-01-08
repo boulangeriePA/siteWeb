@@ -1,43 +1,35 @@
 ﻿
-<?php 
+<?php
 // on récupère un objet métier de type Personne
 $unUtilisateur = $this->lireDonnee('utilisateur');
 ?>
 
-<form method="post" action=".?controleur=utilisateur&action=validerModifierCoordonnees&id=<?php echo $unUtilisateur->getId(); ?>">
-    <h1>Modification des information personelle</h1>
+<form method="post" action=".?controleur=utilisateur&action=validerModifierCoordonnees&id=<?php echo $unUtilisateur->getIdUser(); ?>">
+    <h1>Modification des informations personnelles</h1>
     <fieldset>
         <legend>Mes informations</legend>
-        <label for="civilite">Civilité :</label>
-        <input type="text"  name="civilite" id="civilite" value="<?php echo $unUtilisateur->getCivilite(); ?>"></input><br/>
         <label for="nom">Nom :</label>
-        <input type="text" name="nom" id="nom"  value="<?php echo $unUtilisateur->getNom(); ?>"></input><br/>
+        <input type="text" name="nom" id="nom" value="<?php echo $unUtilisateur->getNomUser(); ?>"></input><br/>
         <label for="prenom">Prénom :</label>
-        <input type="prenom" name="prenom" value="<?php echo $unUtilisateur->getPrenom(); ?>"></input><br/>
+        <input type="prenom" name="prenom" value="<?php echo $unUtilisateur->getPrenomUser(); ?>"></input><br/>
         <label for="mail">E-Mail :</label>
-        <input type="text" name="mail" id="mail" value="<?php echo $unUtilisateur->getMail();; ?>"></input><br/>
+        <input type="text" name="mail" id="mail" value="<?php echo $unUtilisateur->getEmail(); ?>"></input><br/>
         <label for="tel">Tel :</label>
-        <input type="text" name="tel" id="tel" value="<?php echo $unUtilisateur->getNumTel(); ?>"></input><br/>
-        <?php
-            if (MaSession::get('role') == 4){
-                //contenu à afficher si l'utilisateur est un étudiant
-        ?>
-                <label for="etudes">Etudes :</label>
-                <input type="text" name="etudes" id="etudes"  value="<?php echo $unUtilisateur->getEtudes(); ?>"></input><br/>
-                <label for="formation">Formation :</label>
-                <input type="text" name="formation" id="formation"  value="<?php echo $unUtilisateur->getFormation(); ?>"></input><br/>       
-        <?php
-            }
-        ?>
-                <br />
-                <input type="submit" value="Sauvegarder" /><!--validation modification-->
-                <input type="button" value="Retour" onclick="history.back()"><!--allez à la page précédente-->
-                
+        <input type="text" name="tel" id="tel" value="<?php echo $unUtilisateur->getTel(); ?>"></input><br/>
+        <!--
+        <label for="login">Login :</label>
+        <input type="text" name="login" id="login" value="<?php //echo $unUtilisateur->getLogin(); ?>"></input><br/>
+        <label for="password">Mot de passe :</label>
+        <input type="password" name="password" id="password" value="<?php //echo $unUtilisateur->getMdp(); ?>"></input><br/>
+        -->
+        <input type="submit" value="Sauvegarder" /><!--validation modification-->
+        <input type="button" value="Retour" onclick="history.back()"><!--allez à la page précédente-->
+
     </fieldset>
-   
+
 </form>
 <?php
 if (!is_null($this->lireDonnee('message'))) {
-    echo "<strong>".$this->lireDonnee('message')."</strong>";
+    echo "<strong>" . $this->lireDonnee('message') . "</strong>";
 }
 ?>

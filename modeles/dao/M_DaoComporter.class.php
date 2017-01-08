@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Description of M_DaoComporter
  *
@@ -19,8 +20,8 @@ class M_DaoComporter extends M_DaoGenerique {
      * @return objet :  instance de la classe métier, initialisée d'après les valeurs de l'enregistrement 
      */
     public function enregistrementVersObjet($enreg) {
-        //on construit l'objet Specialite
-        $retour = new M_Comporter($enreg['NB'], $enreg['IDMENU'], $enreg['IDCOMMANDE']);
+        //on construit l'objet Comporter
+        $retour = new M_Comporter($enreg['idMenu'], $enreg['idCommande']);
         return $retour;
     }
 
@@ -33,7 +34,6 @@ class M_DaoComporter extends M_DaoGenerique {
         // construire un tableau des paramètres d'insertion ou de modification
         // l'ordre des valeurs est important : il correspond à celui des paramètres de la requête SQL
         $retour = array(
-            ':nb' => $objetMetier->getNb(),
             ':idMenu' => $objetMetier->getIdMenu(),
             ':idCommande' => $objetMetier->getIdCommande()
         );

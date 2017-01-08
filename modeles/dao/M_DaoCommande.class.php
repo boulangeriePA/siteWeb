@@ -21,13 +21,12 @@ class M_DaoCommande extends M_DaoGenerique {
     public function enregistrementVersObjet($enreg) {
         // on instancie l'objet TypeRetrait s'il y a lieu
         $leTypeRetrait = null;
-        if (isset($enreg['NOMTYPERETRAIT'])) {
+        if (isset($enreg['nomTypeRetrait'])) {
             $daoTypeRetrait = new M_DaoRole();
             $daoTypeRetrait->setPdo($this->pdo);
-            $leTypeRetrait = $daoTypeRetrait->getOneById($enreg['IDTYPERETRAIT']);
+            $leTypeRetrait = $daoTypeRetrait->getOneById($enreg['idTypeRetrait']);
         }
-        
-        $retour = new M_Commande($enreg['IDCOMMANDE'], $enreg['DATEHEURE'], $enreg['HEURERETRAIT'], $enreg['IDUSER'], $leTypeRetrait);
+        $retour = new M_Commande($enreg['idCommande'], $enreg['dateHeure'], $enreg['heureRetrait'], $enreg['idUser'], $leTypeRetrait);
         return $retour;
     }
 
@@ -46,11 +45,11 @@ class M_DaoCommande extends M_DaoGenerique {
             $idTypeRetrait = 1; // "Sur place"
         }
         $retour = array(
-        ':idCommande' => $objetMetier->getIdCommande(),
-        ':dateHeure' => $objetMetier->getDateHeure(),
-        ':heureRetrait' => $objetMetier->getHeureRetrait(),
-        ':idUser' => $objetMetier->getIdUser(),
-        ':idTypeRetrait' => $idTypeRetrait
+            ':idCommande' => $objetMetier->getIdCommande(),
+            ':dateHeure' => $objetMetier->getDateHeure(),
+            ':heureRetrait' => $objetMetier->getHeureRetrait(),
+            ':idUser' => $objetMetier->getIdUser(),
+            ':idTypeRetrait' => $idTypeRetrait
         );
         return $retour;
     }

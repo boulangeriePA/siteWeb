@@ -2,7 +2,7 @@
 <html>
     <head>
         <meta charset="UTF-8">
-        <title>test DaoRole et test DaoSpecialite</title>
+        <title>test DaoRole et DaoTypeRetrait</title>
     </head>
     <body>
         <?php

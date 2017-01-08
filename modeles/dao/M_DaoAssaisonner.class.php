@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Description of M_DaoAssaisonner
  *
@@ -19,8 +20,8 @@ class M_DaoAssaisonner extends M_DaoGenerique {
      * @return objet :  instance de la classe métier, initialisée d'après les valeurs de l'enregistrement 
      */
     public function enregistrementVersObjet($enreg) {
-        //on construit l'objet Specialite
-        $retour = new M_Assaisonner($enreg['IDPRODUIT'], $enreg['IDSAUCE']);
+        //on construit l'objet Assaisonner
+        $retour = new M_Assaisonner($enreg['idProduit'], $enreg['idSauce']);
         return $retour;
     }
 

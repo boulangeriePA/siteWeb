@@ -19,8 +19,8 @@ class M_DaoBoisson extends M_DaoGenerique {
      * @return objet :  instance de la classe métier, initialisée d'après les valeurs de l'enregistrement 
      */
     public function enregistrementVersObjet($enreg) {
-        //on construit l'objet Specialite
-        $retour = new M_Boisson($enreg['IDPRODUIT'], $enreg['NOMPRODUIT'], $enreg['VOLUME']);
+        //on construit l'objet Boisson
+        $retour = new M_Boisson($enreg['idProduit'], $enreg['nomProduit'], $enreg['volume']);
         return $retour;
     }
 

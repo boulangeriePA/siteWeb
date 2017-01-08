@@ -1,6 +1,6 @@
 <?php
 /**
- * Description of M_DaoBoisson
+ * Description of M_DaoSauce
  *
  * @author arichard
  */
@@ -18,8 +18,8 @@ class M_DaoSauce extends M_DaoGenerique {
      * @return objet :  instance de la classe métier, initialisée d'après les valeurs de l'enregistrement 
      */
     public function enregistrementVersObjet($enreg) {
-        //on construit l'objet Specialite
-        $retour = new M_Sauce($enreg['IDSAUCE'], $enreg['NOMSAUCE']);
+        //on construit l'objet Sauce
+        $retour = new M_Sauce($enreg['idSauce'], $enreg['nomSauce']);
         return $retour;
     }
 

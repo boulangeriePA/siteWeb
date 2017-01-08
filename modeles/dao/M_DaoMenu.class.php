@@ -32,7 +32,6 @@ class M_DaoMenu extends M_DaoGenerique {
         // construire un tableau des paramètres d'insertion ou de modification
         // l'ordre des valeurs est important : il correspond à celui des paramètres de la requête SQL
         $retour = array(
-            ':idMenu' => $objetMetier->getIdMenu(),
             ':prixMenu' => $objetMetier->getPrixMenu(),
             ':nomMenu' => $objetMetier->getNomMenu()
         );
@@ -96,6 +95,25 @@ class M_DaoMenu extends M_DaoGenerique {
             $queryPrepare = $this->pdo->prepare($sql);
             //execution de la  requete
             if ($queryPrepare->execute(array(':id' => $idMenu))) {
+                // si la requete marche
+                $enregistrement = $queryPrepare->fetch(PDO::FETCH_ASSOC);
+                $retour = $this->enregistrementVersObjet($enregistrement);
+            }
+        } catch (Exception $e) {
+            echo get_class($this) . ' - ' . __METHOD__ . ' : ' . $e->getMessage();
+        }
+        return $retour;
+    }
+
+    public function selectOneByName($nomMenu) {
+        $retour = null;
+        try {
+            //requete
+            $sql = "SELECT * FROM $this->nomTable WHERE nomMenu = :nom";
+            //préparer la requête PDO
+            $queryPrepare = $this->pdo->prepare($sql);
+            //execution de la  requete
+            if ($queryPrepare->execute(array(':nom' => $nomMenu))) {
                 // si la requete marche
                 $enregistrement = $queryPrepare->fetch(PDO::FETCH_ASSOC);
                 $retour = $this->enregistrementVersObjet($enregistrement);

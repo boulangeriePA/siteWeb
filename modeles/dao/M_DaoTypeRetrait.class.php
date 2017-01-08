@@ -43,7 +43,7 @@ class M_DaoTypeRetrait extends M_DaoGenerique {
     }
 
     /**
-     * Retourne toutes les données en rapport avec l'ID du rôle en paramètre
+     * Retourne toutes les données en rapport avec l'ID du type de retrait en paramètre
      * @param type $idTypeRetrait
      * @return array $retour
      */

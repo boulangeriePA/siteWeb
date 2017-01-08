@@ -36,7 +36,7 @@
         //Test d'insertion
         echo "<p>Test d'insertion</p>";
         $role = new M_Role(2, "intendant");
-        $role= new M_User(5, "Hugo", "Victor","vhugo@free.fr", "0678901234", "vhugo", "vhugo", $role);
+        $role= new M_User(null, "Hugo", "Victor","vhugo@free.fr", "0678901234", "vhugo", "vhugo", $role);
         var_dump($role);
         $dao->insert($role);
         $persLu = $dao->getOneByLogin('vhugo');
