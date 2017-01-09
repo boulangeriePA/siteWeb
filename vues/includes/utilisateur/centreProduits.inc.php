@@ -1,10 +1,10 @@
 <h1>Produits</h1>
 
 <ul id="menu">
-    <li class="onglet_1"><input type="button" id="boutonSandwich" value="Sandwichs"></li>
-    <li class="onglet_3"><input type="button" id="boutonDessert" value="Desserts"></li>
-    <li class="onglet_2"><input type="button" id="boutonBoisson" value="Boissons"></li>    
-</ul> 
+<li class="onglet_1"><a href="http://localhost/boulangeriePA/public/?controleur=utilisateur&action=produits" id="boutonSandwich">Sandwichs</a></li>
+<li class="onglet_2"><a href="http://localhost/boulangeriePA/public/?controleur=utilisateur&action=produits" id="boutonDessert">Boissons</a></li>
+<li class="onglet_3"><a href="http://localhost/boulangeriePA/public/?controleur=utilisateur&action=produits" id="boutonBoisson">Desserts</a></li>
+</ul>
 
 <div id="divSandwich" style="display: block">Nos Sandwich !
     <table border="1px">
