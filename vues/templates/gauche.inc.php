@@ -27,7 +27,7 @@
             //echo "<li><a href=\".?controleur=administrateur&action=creerClasse\">-Cr&eacute;er une classe</a></li>";
             //echo "<li><a href=\".?controleur=administrateur&action=creerUtilisateur&role=MaitreStage\">-Ajouter un ma&icirc;tre de stage</a></li>";
         }
-        if (!is_null($this->lireDonnee('loginAuthentification')) && (MaSession::get('role') == 1 || MaSession::get('role') == 2)) {
+        if (!is_null($this->lireDonnee('loginAuthentification')) && ((MaSession::get('role') == 1 || MaSession::get('role') == 2))) {
             //ajout menu de gauche pour les boulangers
             echo "<hr>";
             //echo "<li><a href=\".?controleur=utilisateur&action=creerEntreprise\">-Ajouter une entreprise</a></li>";

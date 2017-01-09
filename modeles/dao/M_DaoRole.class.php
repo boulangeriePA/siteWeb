@@ -28,6 +28,7 @@ class M_DaoRole extends M_DaoGenerique {
         // construire un tableau des paramètres d'insertion ou de modification
         // l'ordre des valeurs est important : il correspond à celui des paramètres de la requête SQL
         $retour = array(
+            ':idRole' => $objetMetier->getIdRole(),
             ':nomRole' => $objetMetier->getNomRole()
         );
         return $retour;
