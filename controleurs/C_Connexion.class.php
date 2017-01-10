@@ -39,7 +39,8 @@ class C_Connexion extends C_ControleurGenerique {
             $daoUser->deconnecter();
             if ($unUser) {
                 // Si le login et le mot de passe sont valides, ouvrir une nouvelle session
-                MaSession::nouvelle(array('login' => $login, 'role' => $unUser["IDROLE"])); // service minimum
+                //MaSession::nouvelle(array('login' => $login, 'role' => $unUser['idRole'])); // service minimum
+                MaSession::nouvelle(array('login' => $login, 'role' => $unUser['idRole'])); // service minimum
                 header("Location:  index.php");
 //                $this->vue->getDonnees['message'] = "Authentification r&eacute;ussie";
 //                $this->vue->getDonnees['centre'] = "../vues/connexion/centreAuthentifier.inc.php";

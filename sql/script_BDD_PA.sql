@@ -3,6 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Client :  127.0.0.1
+<<<<<<< HEAD
 -- Généré le :  Mar 10 Janvier 2017 à 13:09
 -- Version du serveur :  5.7.9
 -- Version de PHP :  5.6.16
@@ -224,12 +225,12 @@ CREATE TABLE IF NOT EXISTS `menu` (
 --
 
 INSERT INTO `menu` (`idMenu`, `prixMenu`, `nomMenu`) VALUES
-(1, 5, 'Sandwich Froid + Boisson ou Dessert'),
-(2, 5.5, 'Sandwich Chaud + Boisson ou Dessert'),
-(3, 6, 'Sandwich Froid + Boisson + Dessert'),
-(4, 6.25, 'Sandwich Chaud + Boisson + Dessert'),
-(5, 6.8, 'Américain + Boisson ou Dessert'),
-(6, 7, 'Américain + Boisson + Dessert');
+(1, 5.3, 'Sandwich Froid + Boisson ou Dessert'),
+(2, 5.5, 'Panini + Boisson ou Dessert'),
+(3, 6.4, 'Sandwich Froid + Boisson + Dessert'),
+(4, 7, 'Panini + Boisson + Dessert'),
+(5, 6.1, 'Américain + Boisson ou Dessert'),
+(6, 8, 'Américain + Boisson + Dessert');
 
 -- --------------------------------------------------------
 
@@ -406,7 +407,7 @@ INSERT INTO `user` (`idUser`, `nomUser`, `prenomUser`, `email`, `tel`, `login`, 
 (2, 'sabaron', 'benjamin', 'obfgoubf@sdb.df', '0258796413', 'bsabaron', 'eb3b326139faaaa21ab0b3c3a75995d01649707d', 2),
 (3, 'dijoux', 'ludovic', 'hdbifbsd@hsbdh.df', '0258796417', 'ldijoux', 'b657bda387fee9bdcb0c17df4c650738f72659c2', 3);
 
---
+
 -- Contraintes pour les tables exportées
 --
 
