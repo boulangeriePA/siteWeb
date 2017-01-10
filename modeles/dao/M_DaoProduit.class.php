@@ -150,6 +150,38 @@ class M_DaoProduit extends M_DaoGenerique {
             echo get_class($this) . ' - ' . __METHOD__ . ' : ' . $e->getMessage();
         }
         return $retour;
+    }    
+    
+    function getProduitsCommandeByIdCommande($idCommande) {
+        $retour = null;
+// Requête textuelle
+        $sql = "SELECT $this->nomTable.nomProduit,$this->nomTable.idProduit FROM $this->nomTable ";
+        $sql .= "INNER JOIN posseder po ON po.idProduit=$this->nomTable.idProduit ";
+        $sql .= "INNER JOIN menu m ON po.idMenu=m.idMenu ";
+        $sql .= "INNER JOIN comporter comp ON m.idMenu=comp.idMenu ";
+        $sql .= "INNER JOIN commande ON comp.idCommande=commande.idCommande ";
+        $sql .= "INNER JOIN user u ON commande.idUser=u.idUser ";
+        $sql .= "WHERE commande.idCommande = :idCommande";
+        try {
+// préparer la requête PDO
+            $queryPrepare = $this->pdo->prepare($sql);
+// exécuter la requête PDO
+            if ($queryPrepare->execute(array(':idCommande' => $idCommande))) {
+// si la requête réussit :
+// initialiser le tableau d'objets à retourner
+                $retour = array();
+// pour chaque enregistrement retourné par la requête
+                while ($enregistrement = $queryPrepare->fetch(PDO::FETCH_ASSOC)) {
+// construir un objet métier correspondant
+                    $unObjetMetier = $this->enregistrementVersObjet($enregistrement);
+// ajouter l'objet au tableau
+                    $retour[] = $unObjetMetier;
+                }
+            }
+        } catch (PDOException $e) {
+            echo get_class($this) . ' - ' . __METHOD__ . ' : ' . $e->getMessage();
+        }
+        return $retour;
     }
 
 }

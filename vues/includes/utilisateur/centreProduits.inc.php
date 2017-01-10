@@ -49,7 +49,7 @@
         <?php
         foreach ($this->lireDonnee('lesDesserts') as $unDessert) {
             echo'<tr>';
-            echo'<td>' . $unDessert->getNomProduit() . '</td>';
+            echo'<td>- ' . $unDessert->getNomProduit() . '</td>';
             echo'</tr>';
         }
         ?>
@@ -67,7 +67,7 @@
         <?php
         foreach ($this->lireDonnee('lesBoissons') as $uneBoisson) {
             echo'<tr>';
-            echo'<td>' . $uneBoisson->getNomProduit() . '</td>';
+            echo'<td>- ' . $uneBoisson->getNomProduit() . '</td>';
             echo'<td>' . $uneBoisson->getVolume() . ' cl</td>';
             echo'</tr>';
         }
