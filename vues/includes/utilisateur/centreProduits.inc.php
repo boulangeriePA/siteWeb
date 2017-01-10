@@ -2,8 +2,8 @@
 
 <ul id="menu">
 <li class="onglet_1"><a id="boutonSandwich">Sandwichs</a></li>
-<li class="onglet_2"><a id="boutonDessert">Boissons</a></li>
-<li class="onglet_3"><a id="boutonBoisson">Desserts</a></li>
+<li class="onglet_2"><a id="boutonBoisson">Boissons</a></li>
+<li class="onglet_3"><a id="boutonDessert">Desserts</a></li>
 </ul>
  
 <div id="divSandwich" style="display: block"><br/>Nos Sandwich !<br/><br/>
