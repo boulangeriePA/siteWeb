@@ -1,18 +1,13 @@
-<h1>Nos Formules</h1>
-<table border="2px" > 
-    <tr >
-        <th>Formule</th>
-        <th>Prix</th>
-    </tr>
-    <?php
-    foreach ($this->lireDonnee('lesFormules') as $uneFormule) {
-        echo'<tr>';
-        echo'<td>' . $uneFormule->getNomMenu() . '</td>';
-        echo'<td>' . $uneFormule->getPrixMenu() . ' €</td>';
-        echo'</tr>';
-    }
-    ?>
-</table>
+
+<h1 style="color : red;">Formules du Midi</h1>
+
+<?php
+echo'<h2>Nos Formules :</h2>';
+foreach ($this->lireDonnee('lesFormules') as $uneFormule) {
+    echo'<div>'. $uneFormule->getidMenu() . ') ' . $uneFormule->getNomMenu() . ' : ' . $uneFormule->getPrixMenu() . ' €<div>';
+    echo'<br/>';
+}
+?>
 
 <?php
 if (!is_null($this->lireDonnee('message'))) {
