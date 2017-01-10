@@ -179,7 +179,7 @@ class M_DaoUser extends M_DaoGenerique {
     function verifierLogin($login, $mdp) {
         $retour = null;
         try {
-            $sql = "SELECT * FROM $this->nomTable WHERE LOGIN = :login AND MDP = :mdp";
+            $sql = "SELECT * FROM $this->nomTable INNER JOIN role r ON $this->nomTable.idRole=r.idRole WHERE LOGIN = :login AND MDP = :mdp";
             $stmt = $this->pdo->prepare($sql);
             if ($stmt->execute(array(':login' => $login, ':mdp' => sha1($mdp)))) {
                 $retour = $stmt->fetch(PDO::FETCH_ASSOC);
