@@ -15,7 +15,7 @@
             echo "<hr>";
             echo "<li><a href=\".?controleur=utilisateur&action=produits\">-Nos Produits</a></li>";
             echo "<li><a href=\".?controleur=utilisateur&action=formules\">-Nos Formules</a></li>";
-            echo "<li><a href=\".?controleur=utilisateur&action=commander\">-Passer une commande</a></li>";
+            echo "<li><a href=\".?controleur=utilisateur&action=commander1\">-Passer une commande</a></li>";
         } else {
             echo "<li><a href=\".?controleur=connexion&action=seConnecter\">Se connecter</a></li>";
         }

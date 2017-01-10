@@ -160,7 +160,7 @@ class C_Utilisateur extends C_ControleurGenerique {
         $this->vue->afficher();
     }
     
-    function commander() {
+    function commander1() {
         $this->vue = new V_Vue("../vues/templates/template.inc.php");
         $this->vue->ecrireDonnee('titreVue', 'Mes commandes');
         $daoFormule = new M_DaoMenu();
@@ -172,7 +172,23 @@ class C_Utilisateur extends C_ControleurGenerique {
         // transmettre le login        
         $this->vue->ecrireDonnee('loginAuthentification', MaSession::get('login'));
         // vue centrale à inclure
-        $this->vue->ecrireDonnee('centre', "../vues/includes/utilisateur/centreCommander.inc.php");
+        $this->vue->ecrireDonnee('centre', "../vues/includes/utilisateur/centreCommander1.inc.php");
+        $this->vue->afficher();
+    }
+    
+    function commander2() {
+        $this->vue = new V_Vue("../vues/templates/template.inc.php");
+        $this->vue->ecrireDonnee('titreVue', 'Mes commandes');
+        $daoFormule = new M_DaoMenu();
+        $daoFormule->connecter();
+        //récupération de la liste des organisations
+        $formules = $daoFormule->getAll();
+        $this->vue->ecrireDonnee('lesFormules', $formules);
+        $daoFormule->deconnecter();
+        // transmettre le login        
+        $this->vue->ecrireDonnee('loginAuthentification', MaSession::get('login'));
+        // vue centrale à inclure
+        $this->vue->ecrireDonnee('centre', "../vues/includes/utilisateur/centreCommander2.inc.php");
         $this->vue->afficher();
     }
     
