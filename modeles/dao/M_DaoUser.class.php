@@ -189,7 +189,7 @@ class M_DaoUser extends M_DaoGenerique {
         }
         return $retour;
     }
-
+    
     /**
      * suppression
      * @param type $objetMetier
