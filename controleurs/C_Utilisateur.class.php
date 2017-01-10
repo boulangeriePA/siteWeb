@@ -187,6 +187,12 @@ class C_Utilisateur extends C_ControleurGenerique {
         $this->vue->ecrireDonnee('lesSandwichs', $sandwichs);
         $daoSandwich->deconnecter();
         
+        $daoIngredient = new M_DaoIngredient();
+        $daoIngredient->connecter();
+        //récupération de la liste des sandwichs
+        $ingredients = $daoIngredient->getIngrédients();
+        $this->vue->ecrireDonnee('lesIngredients', $ingredients);
+        $daoIngredient->deconnecter();
         
         $daoDessert = new M_DaoDessert();
         $daoDessert->connecter();

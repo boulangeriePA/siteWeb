@@ -6,31 +6,45 @@
 <li class="onglet_3"><a id="boutonDessert">Desserts</a></li>
 </ul>
  
-<div id="divSandwich" style="display: block"><br/>Nos Sandwich !<br/><br/>
-    <table border="1px">
+<div id="divSandwich" style="display: block">
+    <h1>Nos Sandwichs !<h1/>    
+    <table border="1px" style="display: inline-block; vertical-align: top;">
         <tr>
-            <th>Sandwich</th>
-            <th>température pain</th>
+            <th>Sandwichs</th>
         </tr>
         <?php
         foreach ($this->lireDonnee('lesSandwichs') as $unSandwich) {
             echo'<tr>';
-            echo'<td>' . $unSandwich->getNomProduit() . '</td>';
+            echo'<td>- ' . $unSandwich->getNomProduit();
             if($unSandwich->getTemperaturePain()==0){
-                echo'<td>froid</td>';
+                echo' froid</td>';
             }  elseif ($unSandwich->getTemperaturePain()==1) {
-                echo'<td>chaud</td>';
+                echo' chaud</td>';
             }
             echo'</tr>';
         }
         ?>
     </table>
+    <table border="1px" style="display: inline-block; vertical-align: top;">
+        <tr>
+            <th>Ingrédients</th>
+        </tr>
+        <?php
+        foreach ($this->lireDonnee('lesIngredients') as $unIngredient) {
+            echo'<tr>';
+            echo'<td>- ' . $unIngredient->getNomIngredient() . '</td>';
+            echo'</tr>';
+        }
+        ?>
+    </table>
+    <img src="../vues/images/americain.jpg" height="240px" width="360px" style=" float: right"/>
 </div>
 
-<div id="divDessert" style="display: none"><br/>Nos Desserts !<br/><br/>
-    <table border="1px">
+<div id="divDessert" style="display: none">
+    <h1>Nos Desserts !</h1>    
+    <table border="1px" style="display: inline-block; vertical-align: top;">
         <tr>
-            <th>Dessert</th>
+            <th>Desserts</th>
         </tr>
         <?php
         foreach ($this->lireDonnee('lesDesserts') as $unDessert) {
@@ -40,10 +54,12 @@
         }
         ?>
     </table>
+    <img src="../vues/images/desserts.jpg" height="320px" width="480px" style=" float: right"/>
 </div>
 
-<div id="divBoisson" style="display: none"><br/>Nos Boissons !<br/><br/>
-    <table border="1px">
+<div id="divBoisson" style="display: none">
+    <h1>Nos Boissons !</h1>    
+    <table border="1px" style="display: inline-block; vertical-align: top;">
         <tr>
             <th>Boisson</th>
             <th>Volume</th>
@@ -57,6 +73,7 @@
         }
         ?>
     </table>
+    <img src="../vues/images/boissons.jpg" height="170px" width="500px" style=" float: right"/>
 </div>
 
 <script>

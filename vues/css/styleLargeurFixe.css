@@ -11,6 +11,14 @@ body {
     background-attachment:fixed;
 }
 
+table{
+    border-collapse: collapse;
+}
+
+table.tr,td,th{
+    border: none;
+    padding: 7;
+}
 
 #global{
     margin-top:2%;
