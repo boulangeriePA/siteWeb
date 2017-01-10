@@ -5,8 +5,8 @@
 <li class="onglet_2"><a id="boutonDessert">Boissons</a></li>
 <li class="onglet_3"><a id="boutonBoisson">Desserts</a></li>
 </ul>
-
-<div id="divSandwich" style="display: block">Nos Sandwich !
+ 
+<div id="divSandwich" style="display: block"><br/>Nos Sandwich !<br/><br/>
     <table border="1px">
         <tr>
             <th>Sandwich</th>
@@ -27,7 +27,7 @@
     </table>
 </div>
 
-<div id="divDessert" style="display: none">Nos Desserts !
+<div id="divDessert" style="display: none"><br/>Nos Desserts !<br/><br/>
     <table border="1px">
         <tr>
             <th>Dessert</th>
@@ -42,7 +42,7 @@
     </table>
 </div>
 
-<div id="divBoisson" style="display: none">Nos Boissons !
+<div id="divBoisson" style="display: none"><br/>Nos Boissons !<br/><br/>
     <table border="1px">
         <tr>
             <th>Boisson</th>
