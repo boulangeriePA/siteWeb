@@ -5,7 +5,7 @@
 $unUtilisateur = $this->lireDonnee('utilisateur');
 ?>
 <form method="post" action=".?controleur=utilisateur&action=modifierCoordonnees">
-    <h1>Informations personnelles</h1>
+    <h1 style="color : red;">Informations personnelles</h1>
     <fieldset>
         <legend>Mes informations</legend>
         <label for="nom">Nom :</label>

@@ -7,7 +7,7 @@
 
 <!-- $this->message : à afficher sous le formulaire -->
 <form method="post" action=".?controleur=AdminPersonnes&action=validationCreerPersonne" name="CreateUser">
-    <h1>Creation d'une personne</h1>
+    <h1 style="color : red;">Creation d'une personne</h1>
     <!-- Choix du type de compte pour afficher les différentes informations pour créer un compte spécifique -->
     <fieldset>
         <legend>Type de compte</legend>

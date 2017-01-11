@@ -1,6 +1,6 @@
 
 <form method="post" action=".?controleur=utilisateur&action=commander2">
-    <h1>Passer une commande</h1>
+    <h1 style="color : red;">Passer une commande</h1>
     <fieldset>
         <?php
             echo '<legend>' . $_POST['menus'] . '</legend>';

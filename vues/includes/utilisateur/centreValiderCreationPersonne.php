@@ -49,7 +49,7 @@ $fonction = $_POST['fonction'];
 $login = $_POST['login'];
 ?>
 
-<h1>La personne a bien été créée</h1>
+<h1 style="color : red;">La personne a bien été créée</h1>
 
 <h2>Récapitulatif de ses informations personnelles</h2>
 

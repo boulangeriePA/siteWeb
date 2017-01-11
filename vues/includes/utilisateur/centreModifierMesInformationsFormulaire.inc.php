@@ -5,7 +5,7 @@ $unUtilisateur = $this->lireDonnee('utilisateur');
 ?>
 
 <form method="post" action=".?controleur=utilisateur&action=validerModifierCoordonnees&id=<?php echo $unUtilisateur->getIdUser(); ?>">
-    <h1>Modification des informations personnelles</h1>
+    <h1 style="color : red;">Modification des informations personnelles</h1>
     <fieldset>
         <legend>Mes informations</legend>
         <label for="nom">Nom :</label>
