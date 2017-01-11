@@ -38,6 +38,74 @@ class M_DaoPosseder extends M_DaoGenerique {
             ':idProduit' => $objetMetier->getIdProduit()
         );
         return $retour;
-    }  
+    }
+
+    public function insert($objetMetier) {
+        $retour = FALSE;
+        try {
+            // Requête textuelle paramétrée (paramètres nommés)
+            $sql = "INSERT INTO $this->nomTable (idMenu, idProduit) VALUES (:idMenu, :idProduit)";
+//            var_dump($sql);
+            // préparer la requête PDO
+            $queryPrepare = $this->pdo->prepare($sql);
+            // préparer la  liste des paramètres, avec l'identifiant en dernier
+            $parametres = $this->objetVersEnregistrement($objetMetier);
+            // exécuter la requête avec les valeurs des paramètres dans un tableau
+            $retour = $queryPrepare->execute($parametres);
+//            debug_query($sql, $parametres);
+        } catch (PDOException $e) {
+            echo get_class($this) . ' - ' . __METHOD__ . ' : ' . $e->getMessage();
+        }
+        return $retour;
+    }
+
+    public function update($idMetier, $objetMetier) {
+        $retour = FALSE;
+        try {
+            // Requête textuelle paramétrée (paramètres nommés)
+            $sql = "UPDATE $this->nomTable SET ";
+            $sql .= "idMenu = :idMenu, ";
+            $sql .= "idProduit = :idProduit ";
+            $sql .= "WHERE idMenu = :id";
+//            var_dump($sql);
+            // préparer la requête PDO
+            $queryPrepare = $this->pdo->prepare($sql);
+            // préparer la  liste des paramètres la valeur de l'identifiant
+            //  à prendre en compte est celle qui a été passée en paramètre à la méthode
+            $parametres = $this->objetVersEnregistrement($objetMetier);
+            $parametres[':id'] = $idMetier;
+            // exécuter la requête avec les valeurs des paramètres dans un tableau
+            $retour = $queryPrepare->execute($parametres);
+//            debug_query($sql, $parametres);
+        } catch (PDOException $e) {
+            echo get_class($this) . ' - ' . __METHOD__ . ' : ' . $e->getMessage();
+        }
+        return $retour;
+    }
+
+    /**
+     * Retourne toutes les données en rapport avec l'ID du produit en paramètre
+     * @param type $idProduit
+     * @return array $retour
+     */
+    public function selectOne($idProduit) {
+        $retour = null;
+        try {
+            //requete
+            $sql = "SELECT * FROM $this->nomTable WHERE idproduit = :id";
+            //préparer la requête PDO
+
+            $queryPrepare = $this->pdo->prepare($sql);
+            //execution de la  requete
+            if ($queryPrepare->execute(array(':id' => $idProduit))) {
+                // si la requete marche
+                $enregistrement = $queryPrepare->fetch(PDO::FETCH_ASSOC);
+                $retour = $this->enregistrementVersObjet($enregistrement);
+            }
+        } catch (Exception $e) {
+            echo get_class($this) . ' - ' . __METHOD__ . ' : ' . $e->getMessage();
+        }
+        return $retour;
+    }
 
 }

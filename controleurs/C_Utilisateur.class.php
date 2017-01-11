@@ -228,23 +228,6 @@ class C_Utilisateur extends C_ControleurGenerique {
         $this->vue->afficher();
     }
 
-    function commandesEnCours() {
-        $this->vue = new V_Vue("../vues/templates/template.inc.php");
-        $this->vue->ecrireDonnee('titreVue', 'Les commandes');
-        $daoCommandeEnCours = new M_DaoCommande();
-        $daoCommandeEnCours->connecter();
-        //récupération de la liste des organisations
-        $etatCommande = "en cours";
-        $commandesEnCours = $daoCommandeEnCours->getCommandesEnCours($etatCommande);
-        $this->vue->ecrireDonnee('lesCommandesEnCours', $commandesEnCours);
-        $daoCommandeEnCours->deconnecter();
-        // transmettre le login        
-        $this->vue->ecrireDonnee('loginAuthentification', MaSession::get('login'));
-        // vue centrale à inclure
-        $this->vue->ecrireDonnee('centre', "../vues/includes/utilisateur/centreCommandesEnCours.inc.php");
-        $this->vue->afficher();
-    }
-
 // Fonction d'affichage du formulaire d'inscription
     function inscription() {
         $this->vue = new V_Vue("../vues/templates/template.inc.php");
