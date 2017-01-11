@@ -1,6 +1,6 @@
 
 <form method="post" action=".?controleur=utilisateur&action=commander2">
-    <h1>Passer une commande</h1>
+    <h1 style="color : red;">Passer une commande</h1>
     <fieldset>
         <legend>Menus</legend>
         <p>
@@ -9,8 +9,8 @@
         <?php
         foreach ($this->lireDonnee('lesFormules') as $uneFormule) {
             echo '<input style="float: none ;" type="radio" name="menus" value="menu'
-            . $uneFormule->getidMenu() . '" id="menu' . $uneFormule->getidMenu()
-            . '"/> <label style="float: none ;" for="menu' . $uneFormule->getidMenu()
+            . $uneFormule->getIdMenu() . '" id="menu' . $uneFormule->getIdMenu()
+            . '"/> <label style="float: none ;" for="menu' . $uneFormule->getIdMenu()
             . '">' . $uneFormule->getNomMenu() . ' : ' . $uneFormule->getPrixMenu()
             . ' €</label>';
             echo '<br/>';

@@ -1,5 +1,3 @@
-<h1>Produits</h1>
-
 <ul id="menu">
 <li class="onglet_1"><a id="boutonSandwich">Sandwichs</a></li>
 <li class="onglet_2"><a id="boutonBoisson">Boissons</a></li>
@@ -7,7 +5,7 @@
 </ul>
  
 <div id="divSandwich" style="display: block">
-    <h1>Nos Sandwichs !<h1/>    
+    <br>
     <table border="1px" style="display: inline-block; vertical-align: top;">
         <tr>
             <th>Sandwichs</th>
@@ -41,7 +39,7 @@
 </div>
 
 <div id="divDessert" style="display: none">
-    <h1>Nos Desserts !</h1>    
+    <br>
     <table border="1px" style="display: inline-block; vertical-align: top;">
         <tr>
             <th>Desserts</th>
@@ -58,7 +56,7 @@
 </div>
 
 <div id="divBoisson" style="display: none">
-    <h1>Nos Boissons !</h1>    
+    <br>
     <table border="1px" style="display: inline-block; vertical-align: top;">
         <tr>
             <th>Boisson</th>

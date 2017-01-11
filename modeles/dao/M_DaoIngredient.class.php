@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Description of M_DaoIngredient
  *
@@ -61,8 +62,8 @@ class M_DaoIngredient extends M_DaoGenerique {
         try {
             // Requête textuelle paramétrée (paramètres nommés)
             $sql = "UPDATE $this->nomTable SET ";
-            $sql .= "NOMINGREDIENT = :nomIngredient ";
-            $sql .= "WHERE IDINGREDIENT = :id";
+            $sql .= "NOMPRODUIT = :nomProduit ";
+            $sql .= "WHERE IDPRODUIT = :id";
 //            var_dump($sql);
             // préparer la requête PDO
             $queryPrepare = $this->pdo->prepare($sql);
@@ -79,41 +80,49 @@ class M_DaoIngredient extends M_DaoGenerique {
         return $retour;
     }
 
-    /**
-     * Retourne toutes les données en rapport avec l'ID du produit en paramètre
-     * @param type $idIngredient
-     * @return array $retour
-     */
-    public function selectOne($idIngredient) {
-        $retour = null;
-        try {
-            //requete
-            $sql = "SELECT * FROM $this->nomTable WHERE idIngredient = :id";
-            //préparer la requête PDO
-
-            $queryPrepare = $this->pdo->prepare($sql);
-            //execution de la  requete
-            if ($queryPrepare->execute(array(':id' => $idIngredient))) {
-                // si la requete marche
-                $enregistrement = $queryPrepare->fetch(PDO::FETCH_ASSOC);
-                $retour = $this->enregistrementVersObjet($enregistrement);
-            }
-        } catch (Exception $e) {
-            echo get_class($this) . ' - ' . __METHOD__ . ' : ' . $e->getMessage();
-        }
-        return $retour;
-    }
-    
     function getIngredients() {
         $retour = null;
 // Requête textuelle
         $sql = "select * from $this->nomTable";
-        
+
         try {
 // préparer la requête PDO
             $queryPrepare = $this->pdo->prepare($sql);
 // exécuter la requête PDO
             if ($queryPrepare->execute()) {
+// si la requête réussit :
+// initialiser le tableau d'objets à retourner
+                $retour = array();
+// pour chaque enregistrement retourné par la requête
+                while ($enregistrement = $queryPrepare->fetch(PDO::FETCH_ASSOC)) {
+// construir un objet métier correspondant
+                    $unObjetMetier = $this->enregistrementVersObjet($enregistrement);
+// ajouter l'objet au tableau
+                    $retour[] = $unObjetMetier;
+                }
+            }
+        } catch (PDOException $e) {
+            echo get_class($this) . ' - ' . __METHOD__ . ' : ' . $e->getMessage();
+        }
+        return $retour;
+    }
+
+    function getIngredientByIdCommandeAndIdProduit($idCommande, $idProduit) {
+        $retour = null;
+// Requête textuelle
+        $sql = "SELECT $this->nomTable.nomIngredient,$this->nomTable.idIngredient FROM $this->nomTable ";
+        $sql .= "INNER JOIN contenir cont ON $this->nomTable.idIngredient=cont.idIngredient ";
+        $sql .= "INNER JOIN produit pr ON cont.idProduit=pr.idProduit ";
+        $sql .= "INNER JOIN posseder po ON po.idProduit=pr.idProduit ";
+        $sql .= "INNER JOIN menu m ON po.idMenu=m.idMenu ";
+        $sql .= "INNER JOIN comporter comp ON m.idMenu=comp.idMenu ";
+        $sql .= "INNER JOIN commande ON comp.idCommande=commande.idCommande ";
+        $sql .= "WHERE commande.idCommande = :idCommande and cont.idProduit = :idProduit";
+        try {
+// préparer la requête PDO
+            $queryPrepare = $this->pdo->prepare($sql);
+// exécuter la requête PDO
+            if ($queryPrepare->execute(array(':idCommande' => $idCommande, ':idProduit' => $idProduit))) {
 // si la requête réussit :
 // initialiser le tableau d'objets à retourner
                 $retour = array();

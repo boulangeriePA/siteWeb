@@ -41,11 +41,11 @@
         if (!is_null($this->lireDonnee('loginAuthentification')) && ((MaSession::get('role') == 1 || MaSession::get('role') == 3))) {
             //ajout menu de gauche pour les boulangers
             echo "<hr>";
-            echo "<li><a href=\".?controleur=boulanger&action=gererFormule\">Gérer les formules</a></li><br>";
+            echo "<li><a href=\".?controleur=boulanger&action=gererFormules\">Gérer les formules</a></li><br>";
             //AJOUTER / MODIFIER / SUPPRIMER UN FORMULE
-            echo "<li><a href=\".?controleur=boulanger&action=gererProduit\">Gérer les produits</a></li><br>";
+            echo "<li><a href=\".?controleur=boulanger&action=gererProduits\">Gérer les produits</a></li><br>";
             //AJOUTER / MODIFIER / SUPPRIMER UNE PRODUIT
-            echo "<li><a href=\".?controleur=boulanger&action=gererCommande\">Gérer les commandes</a></li><br>";
+            echo "<li><a href=\".?controleur=boulanger&action=gererCommandes\">Gérer les commandes</a></li><br>";
             //AJOUTER / MODIFIER / SUPPRIMER UNE COMMANDE
         }if (!is_null($this->lireDonnee('loginAuthentification')) && MaSession::get('role') == 1) {
             //ajout menu de gauche pour l'administrateur

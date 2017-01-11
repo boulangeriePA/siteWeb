@@ -75,28 +75,4 @@ class M_DaoTypeRetrait extends M_DaoGenerique {
         return $retour;
     }
 
-    /**
-     * Retourne toutes les données en rapport avec l'ID du type de retrait en paramètre
-     * @param type $idTypeRetrait
-     * @return array $retour
-     */
-    public function selectOne($idTypeRetrait) {
-        $retour = null;
-        try {
-            //requete
-            $sql = "SELECT * FROM $this->nomTable WHERE idTypeRetrait = :id";
-            //préparer la requête PDO
-            $queryPrepare = $this->pdo->prepare($sql);
-            //execution de la  requete
-            if ($queryPrepare->execute(array(':id' => $idTypeRetrait))) {
-                // si la requete marche
-                $enregistrement = $queryPrepare->fetch(PDO::FETCH_ASSOC);
-                $retour = $this->enregistrementVersObjet($enregistrement);
-            }
-        } catch (Exception $e) {
-            echo get_class($this) . ' - ' . __METHOD__ . ' : ' . $e->getMessage();
-        }
-        return $retour;
-    }
-
 }

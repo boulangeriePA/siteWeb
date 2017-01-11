@@ -1,5 +1,5 @@
 
-<h1>Commandes Effectuées</h1>
+<h1 style="color : red;">Commandes Effectuées</h1>
 <table border="2px" > 
     <tr >
         <th>N° de Commande</th>

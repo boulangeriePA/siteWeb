@@ -104,12 +104,12 @@ class M_DaoDessert extends M_DaoGenerique {
         }
         return $retour;
     }
-    
+
     function getDesserts() {
         $retour = null;
 // Requête textuelle
         $sql = "select * from $this->nomTable inner join produit p on $this->nomTable.idProduit=p.idProduit";
-        
+
         try {
 // préparer la requête PDO
             $queryPrepare = $this->pdo->prepare($sql);

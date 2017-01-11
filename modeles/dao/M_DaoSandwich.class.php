@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Description of M_DaoSandwich
  *
@@ -105,12 +106,12 @@ class M_DaoSandwich extends M_DaoGenerique {
         }
         return $retour;
     }
-    
+
     function getSandwichs() {
         $retour = null;
 // Requête textuelle
         $sql = "select * from $this->nomTable inner join produit p on $this->nomTable.idProduit=p.idProduit";
-        
+
         try {
 // préparer la requête PDO
             $queryPrepare = $this->pdo->prepare($sql);

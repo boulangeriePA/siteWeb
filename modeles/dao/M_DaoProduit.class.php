@@ -102,7 +102,7 @@ class M_DaoProduit extends M_DaoGenerique {
         }
         return $retour;
     }
-    
+
     public function selectOneByName($nomProduit) {
         $retour = null;
         try {
@@ -150,8 +150,8 @@ class M_DaoProduit extends M_DaoGenerique {
             echo get_class($this) . ' - ' . __METHOD__ . ' : ' . $e->getMessage();
         }
         return $retour;
-    }    
-    
+    }
+
     function getProduitsCommandeByIdCommande($idCommande) {
         $retour = null;
 // Requête textuelle
