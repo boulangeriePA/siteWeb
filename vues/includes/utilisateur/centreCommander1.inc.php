@@ -9,8 +9,8 @@
         <?php
         foreach ($this->lireDonnee('lesFormules') as $uneFormule) {
             echo '<input style="float: none ;" type="radio" name="menus" value="menu'
-            . $uneFormule->getidMenu() . '" id="menu' . $uneFormule->getidMenu()
-            . '"/> <label style="float: none ;" for="menu' . $uneFormule->getidMenu()
+            . $uneFormule->getIdMenu() . '" id="menu' . $uneFormule->getIdMenu()
+            . '"/> <label style="float: none ;" for="menu' . $uneFormule->getIdMenu()
             . '">' . $uneFormule->getNomMenu() . ' : ' . $uneFormule->getPrixMenu()
             . ' €</label>';
             echo '<br/>';
