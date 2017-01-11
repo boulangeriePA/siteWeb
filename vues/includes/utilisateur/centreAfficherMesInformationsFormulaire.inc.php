@@ -16,26 +16,15 @@ $unUtilisateur = $this->lireDonnee('utilisateur');
         <input type="text" name="mail" id="mail" readonly="readonly" value="<?php echo $unUtilisateur->getEmail(); ?>"></input><br/>
         <label for="tel">Tel :</label>
         <input type="text" name="tel" id="tel" readonly="readonly" value="<?php echo $unUtilisateur->getTel(); ?>"></input><br/>
-        
+
         <label for="login">Login :</label>
         <input type="text" name="login" id="login" readonly="readonly" value="<?php echo $unUtilisateur->getLogin(); ?>"></input><br/>
         <label for="password">Mot de passe :</label>
-        <input type="password" size="6" name="password" id="password" readonly="readonly" value="password"></input><br/>
-        <!--
-        <?php
-        //contenu à afficher en fonction de l'utilisateur
-        //if (MaSession::get('role') == 4){
-        //contenu si c'est un étudiant 
-        ?>
-                <label for="etudes">Etudes :</label>
-                <input type="text" name="etudes" id="etudes" readonly="readonly" value="<?php //echo $unUtilisateur->getEtudes();  ?>"></input><br/>
-                <label for="formation">Formation :</label>
-                <input type="text" name="formation" id="formation" readonly="readonly" value="<?php //echo $unUtilisateur->getFormation();  ?>"></input><br/>       
-        <?php
-        // }
-        ?>
-        -->
-        <input type="submit" value="Modifier mes informations" />
+        <input type="password" name="password" id="password" readonly="readonly" value="password"></input><br/>
+
+        <p style="text-align: center;">
+            <input style="float: none ; margin: 0;" type="submit" value="Modifier mes informations" />
+        </p>
     </fieldset>
 
 </form>

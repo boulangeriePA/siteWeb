@@ -96,7 +96,7 @@ class C_AdminPersonnes extends C_ControleurGenerique {
 
         if ($daoPers) {
 
-            $this->vue->ecrireDonnee('centre', "../vues/includes/utilisateur/centreValiderCreationPersonne.php");
+            $this->vue->ecrireDonnee('centre', "../vues/includes/adminPersonnes/centreValiderCreationPersonne.php");
         }
 
         $this->vue->ecrireDonnee('loginAuthentification', MaSession::get('login'));

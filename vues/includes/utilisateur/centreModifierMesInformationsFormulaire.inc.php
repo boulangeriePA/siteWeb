@@ -16,15 +16,16 @@ $unUtilisateur = $this->lireDonnee('utilisateur');
         <input type="text" name="mail" id="mail" value="<?php echo $unUtilisateur->getEmail(); ?>"></input><br/>
         <label for="tel">Tel :</label>
         <input type="text" name="tel" id="tel" value="<?php echo $unUtilisateur->getTel(); ?>"></input><br/>
-        <!--
+        
         <label for="login">Login :</label>
-        <input type="text" name="login" id="login" value="<?php //echo $unUtilisateur->getLogin(); ?>"></input><br/>
+        <input type="text" name="login" id="login" value="<?php echo $unUtilisateur->getLogin();   ?>"></input><br/>
         <label for="password">Mot de passe :</label>
-        <input type="password" name="password" id="password" value="<?php //echo $unUtilisateur->getMdp(); ?>"></input><br/>
-        -->
-        <input type="submit" value="Sauvegarder" /><!--validation modification-->
-        <input type="button" value="Retour" onclick="history.back()"><!--allez à la page précédente-->
-
+        <input type="password" name="password" id="password"></input><br/>
+        
+        <p style="text-align: center; display: inline-block;">
+            <input style="float: none ; margin: 0;" type="submit" value="Sauvegarder" /><!--validation modification-->
+            <input style="float: none ; margin: 0;" type="button" value="Retour" onclick="history.back()"><!--allez à la page précédente-->
+        </p>
     </fieldset>
 
 </form>

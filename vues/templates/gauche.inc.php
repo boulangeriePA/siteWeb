@@ -12,24 +12,28 @@
                 echo "<h2>Client : <i>" . $this->lireDonnee('loginAuthentification') . "</i></h2>";
             } else if (MaSession::get('role') == 1) {
                 echo "<h2>Administrateur : <i>" . $this->lireDonnee('loginAuthentification') . "</i></h2>";
-            }else if (MaSession::get('role') == 3) {
+            } else if (MaSession::get('role') == 3) {
                 echo "<h2>Boulanger : <i>" . $this->lireDonnee('loginAuthentification') . "</i></h2>";
             }
         }
         if (!is_null($this->lireDonnee('loginAuthentification'))) {
             //menu de gauche présent pour tous les utilisateurs
-            
+
             echo "<li><a href=\".?controleur=utilisateur&action=coordonnees\">Mes Informations</a></li><br>";
             //VOIR / MODIFIER SES INFORMATIONS
-            echo "<li><a href=\".?controleur=utilisateur&action=afficherCommandes\">Mes Commandes</a></li><br>";
-            //VOIR / MODIFIER SES COMMANDES
+            if (MaSession::get('role') == 1 || MaSession::get('role') == 2) {
+                echo "<li><a href=\".?controleur=utilisateur&action=afficherCommandes\">Mes Commandes</a></li><br>";
+                //VOIR / MODIFIER SES COMMANDES
+            }
             echo "<hr>";
             echo "<li><a href=\".?controleur=utilisateur&action=formules\">Nos Formules</a></li><br>";
             //VOIR LES INFORMATIONS
             echo "<li><a href=\".?controleur=utilisateur&action=produits\">Nos Produits</a></li><br>";
             //VOIR LES INFORMATIONS
-            echo "<li><a href=\".?controleur=utilisateur&action=commander1\">Commander</a></li>";
-            //PASSER UNE COMMANDE
+            if (MaSession::get('role') == 1 || MaSession::get('role') == 2) {
+                echo "<li><a href=\".?controleur=utilisateur&action=commander1\">Commander</a></li>";
+                //PASSER UNE COMMANDE
+            }
         } else {
             echo "<li><a href=\".?controleur=utilisateur&action=inscription\">S'inscrire</a></li><br>";
             echo "<li><a href=\".?controleur=connexion&action=seConnecter\">Se connecter</a></li>";
