@@ -8,7 +8,7 @@ class C_Connexion extends C_ControleurGenerique {
      */
     function seConnecter() {
         $this->vue = new V_Vue("../vues/templates/template.inc.php");
-        $this->vue->ecrireDonnee("titreVue","GestStage : Connexion");
+        $this->vue->ecrireDonnee("titreVue","Connexion");
         // Centre : formulaire de connexion
         $this->vue->ecrireDonnee('centre',"../vues/includes/connexion/centreSeConnecterFormulaire.inc.php");
         $this->vue->afficher();
@@ -22,7 +22,7 @@ class C_Connexion extends C_ControleurGenerique {
      */
     function authentifier() {
         $this->vue = new V_Vue("../vues/templates/template.inc.php");
-        $this->vue->ecrireDonnee('titreVue',"GestStage : Accueil");
+        $this->vue->ecrireDonnee('titreVue',"Accueil");
         $this->vue->ecrireDonnee('centre',"../vues/includes/connexion/centreAuthentifier.inc.php");
 
 
@@ -39,7 +39,7 @@ class C_Connexion extends C_ControleurGenerique {
             $daoUser->deconnecter();
             if ($unUser) {
                 // Si le login et le mot de passe sont valides, ouvrir une nouvelle session
-                MaSession::nouvelle(array('login' => $login, 'role' => $unUser["IDROLE"])); // service minimum
+                MaSession::nouvelle(array('login' => $login, 'role' => $unUser['idRole'])); // service minimum
                 header("Location:  index.php");
 //                $this->vue->getDonnees['message'] = "Authentification r&eacute;ussie";
 //                $this->vue->getDonnees['centre'] = "../vues/connexion/centreAuthentifier.inc.php";
@@ -48,7 +48,7 @@ class C_Connexion extends C_ControleurGenerique {
                 $this->vue->ecrireDonnee('centre',"../vues/includes/connexion/centreSeConnecterFormulaire.inc.php");
             }
         } else {
-            $this->vue->ecrireDonnee('message',"Attention : le login ou le mot de passe ne sont pas renseign&eacute;s");
+            $this->vue->ecrireDonnee('message',"Attention : le login ou le mot de passe ne sont pas renseignés");
             $this->vue->ecrireDonnee('centre',"../vues/includes/connexion/centreSeConnecterFormulaire.inc.php");
         }
         //------------------------------------------------------------------------

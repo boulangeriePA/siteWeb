@@ -1,15 +1,15 @@
 <?php
 
 /**
- * Description of M_DaoProduit
+ * Description of M_DaoDessert
  *
  * @author arichard
  */
-class M_DaoProduit extends M_DaoGenerique {
+class M_DaoDessert extends M_DaoGenerique {
 
     function __construct() {
-        $this->nomTable = "produit";
-        $this->nomClefPrimaire = "idProduit";
+        $this->nomTable = "DESSERT";
+        $this->nomClefPrimaireIdProduit = "IDPRODUIT";
     }
 
     /**
@@ -19,7 +19,8 @@ class M_DaoProduit extends M_DaoGenerique {
      * @return objet :  instance de la classe métier, initialisée d'après les valeurs de l'enregistrement 
      */
     public function enregistrementVersObjet($enreg) {
-        $retour = new M_Produit($enreg['idProduit'], $enreg['nomProduit']);
+        //on construit l'objet Boisson
+        $retour = new M_Dessert($enreg['idProduit'], $enreg['nomProduit']);
         return $retour;
     }
 
@@ -41,7 +42,7 @@ class M_DaoProduit extends M_DaoGenerique {
         $retour = FALSE;
         try {
             // Requête textuelle paramétrée (paramètres nommés)
-            $sql = "INSERT INTO $this->nomTable (nomProduit) VALUES (:nomProduit)";
+            $sql = "INSERT INTO $this->nomTable (NOMPRODUIT) VALUES (:nomProduit)";
 //            var_dump($sql);
             // préparer la requête PDO
             $queryPrepare = $this->pdo->prepare($sql);
@@ -61,8 +62,8 @@ class M_DaoProduit extends M_DaoGenerique {
         try {
             // Requête textuelle paramétrée (paramètres nommés)
             $sql = "UPDATE $this->nomTable SET ";
-            $sql .= "nomProduit = :nomProduit ";
-            $sql .= "WHERE idProduit = :id";
+            $sql .= "NOMPRODUIT = :nomProduit ";
+            $sql .= "WHERE IDPRODUIT = :id";
 //            var_dump($sql);
             // préparer la requête PDO
             $queryPrepare = $this->pdo->prepare($sql);
@@ -80,7 +81,7 @@ class M_DaoProduit extends M_DaoGenerique {
     }
 
     /**
-     * Retourne toutes les données en rapport avec l'ID de la commande en paramètre
+     * Retourne toutes les données en rapport avec l'ID du produit en paramètre
      * @param type $idProduit
      * @return array $retour
      */
@@ -90,6 +91,7 @@ class M_DaoProduit extends M_DaoGenerique {
             //requete
             $sql = "SELECT * FROM $this->nomTable WHERE idProduit = :id";
             //préparer la requête PDO
+
             $queryPrepare = $this->pdo->prepare($sql);
             //execution de la  requete
             if ($queryPrepare->execute(array(':id' => $idProduit))) {
@@ -103,70 +105,16 @@ class M_DaoProduit extends M_DaoGenerique {
         return $retour;
     }
     
-    public function selectOneByName($nomProduit) {
-        $retour = null;
-        try {
-            //requete
-            $sql = "SELECT * FROM $this->nomTable WHERE nomProduit = :nom";
-            //préparer la requête PDO
-            $queryPrepare = $this->pdo->prepare($sql);
-            //execution de la  requete
-            if ($queryPrepare->execute(array(':nom' => $nomProduit))) {
-                // si la requete marche
-                $enregistrement = $queryPrepare->fetch(PDO::FETCH_ASSOC);
-                $retour = $this->enregistrementVersObjet($enregistrement);
-            }
-        } catch (Exception $e) {
-            echo get_class($this) . ' - ' . __METHOD__ . ' : ' . $e->getMessage();
-        }
-        return $retour;
-    }
-
-    /**
-     * Lire tous les enregistrements d'une table
-     * @return tableau-associatif d'objets : un tableau d'instances de la classe métier
-     */
-    function getAll() {
+    function getDesserts() {
         $retour = null;
 // Requête textuelle
-        $sql = "SELECT * FROM $this->nomTable";
+        $sql = "select * from $this->nomTable inner join produit p on $this->nomTable.idProduit=p.idProduit";
+        
         try {
 // préparer la requête PDO
             $queryPrepare = $this->pdo->prepare($sql);
 // exécuter la requête PDO
             if ($queryPrepare->execute()) {
-// si la requête réussit :
-// initialiser le tableau d'objets à retourner
-                $retour = array();
-// pour chaque enregistrement retourné par la requête
-                while ($enregistrement = $queryPrepare->fetch(PDO::FETCH_ASSOC)) {
-// construir un objet métier correspondant
-                    $unObjetMetier = $this->enregistrementVersObjet($enregistrement);
-// ajouter l'objet au tableau
-                    $retour[] = $unObjetMetier;
-                }
-            }
-        } catch (PDOException $e) {
-            echo get_class($this) . ' - ' . __METHOD__ . ' : ' . $e->getMessage();
-        }
-        return $retour;
-    }    
-    
-    function getProduitsCommandeByIdCommande($idCommande) {
-        $retour = null;
-// Requête textuelle
-        $sql = "SELECT $this->nomTable.nomProduit,$this->nomTable.idProduit FROM $this->nomTable ";
-        $sql .= "INNER JOIN posseder po ON po.idProduit=$this->nomTable.idProduit ";
-        $sql .= "INNER JOIN menu m ON po.idMenu=m.idMenu ";
-        $sql .= "INNER JOIN comporter comp ON m.idMenu=comp.idMenu ";
-        $sql .= "INNER JOIN commande ON comp.idCommande=commande.idCommande ";
-        $sql .= "INNER JOIN user u ON commande.idUser=u.idUser ";
-        $sql .= "WHERE commande.idCommande = :idCommande";
-        try {
-// préparer la requête PDO
-            $queryPrepare = $this->pdo->prepare($sql);
-// exécuter la requête PDO
-            if ($queryPrepare->execute(array(':idCommande' => $idCommande))) {
 // si la requête réussit :
 // initialiser le tableau d'objets à retourner
                 $retour = array();

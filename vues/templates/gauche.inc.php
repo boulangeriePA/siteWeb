@@ -8,33 +8,47 @@
         <hr/>
         <?php
         if (!is_null($this->lireDonnee('loginAuthentification'))) {
-            echo "<h2>Utilisateur : <i>" . $this->lireDonnee('loginAuthentification') . "</i></h2>";
+            if (MaSession::get('role') == 2) {
+                echo "<h2>Client : <i>" . $this->lireDonnee('loginAuthentification') . "</i></h2>";
+            } else if (MaSession::get('role') == 1) {
+                echo "<h2>Administrateur : <i>" . $this->lireDonnee('loginAuthentification') . "</i></h2>";
+            }else if (MaSession::get('role') == 3) {
+                echo "<h2>Boulanger : <i>" . $this->lireDonnee('loginAuthentification') . "</i></h2>";
+            }
+        }
+        if (!is_null($this->lireDonnee('loginAuthentification'))) {
             //menu de gauche présent pour tous les utilisateurs
-            echo "<li><a href=\".?controleur=utilisateur&action=afficherCommandes\">-Afficher mes commandes</a></li>";
-            echo "<li><a href=\".?controleur=utilisateur&action=coordonnees\">-Mes informations</a></li>";
+            
+            echo "<li><a href=\".?controleur=utilisateur&action=coordonnees\">Mes Informations</a></li><br>";
+            //VOIR / MODIFIER SES INFORMATIONS
+            echo "<li><a href=\".?controleur=utilisateur&action=afficherCommandes\">Mes Commandes</a></li><br>";
+            //VOIR / MODIFIER SES COMMANDES
             echo "<hr>";
-            echo "<li><a href=\".?controleur=utilisateur&action=commander\">-Passer une commande</a></li>";
-            echo "<li><a href=\".?controleur=utilisateur&action=produits\">-Nos Produits</a></li>";
-            echo "<li><a href=\".?controleur=utilisateur&action=formules\">-Nos Formules</a></li>";
+            echo "<li><a href=\".?controleur=utilisateur&action=formules\">Nos Formules</a></li><br>";
+            //VOIR LES INFORMATIONS
+            echo "<li><a href=\".?controleur=utilisateur&action=produits\">Nos Produits</a></li><br>";
+            //VOIR LES INFORMATIONS
+            echo "<li><a href=\".?controleur=utilisateur&action=commander1\">Commander</a></li>";
+            //PASSER UNE COMMANDE
         } else {
+            echo "<li><a href=\".?controleur=utilisateur&action=inscription\">S'inscrire</a></li><br>";
             echo "<li><a href=\".?controleur=connexion&action=seConnecter\">Se connecter</a></li>";
         }
-        if (!is_null($this->lireDonnee('loginAuthentification')) && MaSession::get('role') == 1) {
-            //ajout menu de gauche pour l'administrateur
-            echo "<hr>";
-            //echo "<li><a href=\".?controleur=AdminPersonnes&action=creerPersonne\">-Cr&eacute;er une personne</a></li>";
-            echo "<li><a href=\".?controleur=AdminPersonnes&action=ajouterProduit\">-Ajouter un produit</a></li>";
-            //echo "<li><a href=\".?controleur=administrateur&action=creerClasse\">-Cr&eacute;er une classe</a></li>";
-            //echo "<li><a href=\".?controleur=administrateur&action=creerUtilisateur&role=MaitreStage\">-Ajouter un ma&icirc;tre de stage</a></li>";
-        }
-        if (!is_null($this->lireDonnee('loginAuthentification')) && (MaSession::get('role') == 1 || MaSession::get('role') == 2)) {
+        if (!is_null($this->lireDonnee('loginAuthentification')) && ((MaSession::get('role') == 1 || MaSession::get('role') == 3))) {
             //ajout menu de gauche pour les boulangers
             echo "<hr>";
-            //echo "<li><a href=\".?controleur=utilisateur&action=creerEntreprise\">-Ajouter une entreprise</a></li>";
-            //echo "<li><a href=\".?controleur=utilisateur&action=MajEntreprise\">-M.A.J entreprise</a></li>";
-            //echo "<hr>";
-            //echo "<li><a href=\".?controleur=utilisateur&action=ajoutStage\">-Ajouter un stage</a></li>";
-            echo "<li><a href=\".?controleur=utilisateur&action=commandesEnCours\">-Commandes en cours</a></li>";
+            echo "<li><a href=\".?controleur=boulanger&action=gererFormule\">Gérer les formules</a></li><br>";
+            //AJOUTER / MODIFIER / SUPPRIMER UN FORMULE
+            echo "<li><a href=\".?controleur=boulanger&action=gererProduit\">Gérer les produits</a></li><br>";
+            //AJOUTER / MODIFIER / SUPPRIMER UNE PRODUIT
+            echo "<li><a href=\".?controleur=boulanger&action=gererCommande\">Gérer les commandes</a></li><br>";
+            //AJOUTER / MODIFIER / SUPPRIMER UNE COMMANDE
+        }if (!is_null($this->lireDonnee('loginAuthentification')) && MaSession::get('role') == 1) {
+            //ajout menu de gauche pour l'administrateur
+            echo "<hr>";
+            echo "<li><a href=\".?controleur=adminpersonnes&action=gererUser\">Gérer les utilisateurs</a></li><br>";
+            //AJOUTER / MODIFIER / SUPPRIMER UNE PERSONNE
+        //
         }
         ?>
     </ul>

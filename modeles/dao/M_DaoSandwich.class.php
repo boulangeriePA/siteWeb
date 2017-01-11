@@ -32,7 +32,6 @@ class M_DaoSandwich extends M_DaoGenerique {
         // construire un tableau des paramètres d'insertion ou de modification
         // l'ordre des valeurs est important : il correspond à celui des paramètres de la requête SQL
         $retour = array(
-            ':idProduit' => $objetMetier->getIdProduit(),
             ':nomProduit' => $objetMetier->getNomProduit(),
             ':temperaturePain' => $objetMetier->getTemperaturePain()
         );
@@ -102,6 +101,33 @@ class M_DaoSandwich extends M_DaoGenerique {
                 $retour = $this->enregistrementVersObjet($enregistrement);
             }
         } catch (Exception $e) {
+            echo get_class($this) . ' - ' . __METHOD__ . ' : ' . $e->getMessage();
+        }
+        return $retour;
+    }
+    
+    function getSandwichs() {
+        $retour = null;
+// Requête textuelle
+        $sql = "select * from $this->nomTable inner join produit p on $this->nomTable.idProduit=p.idProduit";
+        
+        try {
+// préparer la requête PDO
+            $queryPrepare = $this->pdo->prepare($sql);
+// exécuter la requête PDO
+            if ($queryPrepare->execute()) {
+// si la requête réussit :
+// initialiser le tableau d'objets à retourner
+                $retour = array();
+// pour chaque enregistrement retourné par la requête
+                while ($enregistrement = $queryPrepare->fetch(PDO::FETCH_ASSOC)) {
+// construir un objet métier correspondant
+                    $unObjetMetier = $this->enregistrementVersObjet($enregistrement);
+// ajouter l'objet au tableau
+                    $retour[] = $unObjetMetier;
+                }
+            }
+        } catch (PDOException $e) {
             echo get_class($this) . ' - ' . __METHOD__ . ' : ' . $e->getMessage();
         }
         return $retour;

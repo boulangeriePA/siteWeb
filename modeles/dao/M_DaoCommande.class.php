@@ -9,7 +9,7 @@ class M_DaoCommande extends M_DaoGenerique {
 
     function __construct() {
         $this->nomTable = "COMMANDE";
-        $this->nomClefPrimaire = "IDCOMMANDE";
+        $this->nomClefPrimaire = "idCommande";
     }
 
     /**
@@ -22,7 +22,7 @@ class M_DaoCommande extends M_DaoGenerique {
         // on instancie l'objet TypeRetrait s'il y a lieu
         $leTypeRetrait = null;
         if (isset($enreg['nomTypeRetrait'])) {
-            $daoTypeRetrait = new M_DaoRole();
+            $daoTypeRetrait = new M_DaoTypeRetrait();
             $daoTypeRetrait->setPdo($this->pdo);
             $leTypeRetrait = $daoTypeRetrait->getOneById($enreg['idTypeRetrait']);
         }
@@ -39,13 +39,12 @@ class M_DaoCommande extends M_DaoGenerique {
         // construire un tableau des paramètres d'insertion ou de modification
         // l'ordre des valeurs est important : il correspond à celui des paramètres de la requête SQL
         // le type de retrait sera mis à jour séparément
-        if (!is_null($objetMetier->getRole())) {
-            $idTypeRetrait = $objetMetier->getRole()->getId();
+        if (!is_null($objetMetier->getTypeRetrait())) {
+            $idTypeRetrait = $objetMetier->getTypeRetrait()->getIdTypeRetrait();
         } else {
             $idTypeRetrait = 1; // "Sur place"
         }
         $retour = array(
-            ':idCommande' => $objetMetier->getIdCommande(),
             ':dateHeure' => $objetMetier->getDateHeure(),
             ':heureRetrait' => $objetMetier->getHeureRetrait(),
             ':idUser' => $objetMetier->getIdUser(),
@@ -121,6 +120,68 @@ class M_DaoCommande extends M_DaoGenerique {
                 $retour = $this->enregistrementVersObjet($enregistrement);
             }
         } catch (Exception $e) {
+            echo get_class($this) . ' - ' . __METHOD__ . ' : ' . $e->getMessage();
+        }
+        return $retour;
+    }
+    
+    function getCommandesByLogin($login) {
+        $retour = null;
+// Requête textuelle
+        $sql = "SELECT * FROM $this->nomTable ";
+        $sql .= "INNER JOIN user u ON $this->nomTable.idUser=u.idUser ";
+        $sql .= "INNER JOIN typeRetrait tr ON  $this->nomTable.idTypeRetrait=tr.idTypeRetrait ";
+        $sql .= "WHERE u.login = :login";
+        try {
+// préparer la requête PDO
+            $queryPrepare = $this->pdo->prepare($sql);
+// exécuter la requête PDO
+            if ($queryPrepare->execute(array(':login' => $login))) {
+// si la requête réussit :
+// initialiser le tableau d'objets à retourner
+                $retour = array();
+// pour chaque enregistrement retourné par la requête
+                while ($enregistrement = $queryPrepare->fetch(PDO::FETCH_ASSOC)) {
+// construir un objet métier correspondant
+                    $unObjetMetier = $this->enregistrementVersObjet($enregistrement);
+// ajouter l'objet au tableau
+                    $retour[] = $unObjetMetier;
+                }
+            }
+        } catch (PDOException $e) {
+            echo get_class($this) . ' - ' . __METHOD__ . ' : ' . $e->getMessage();
+        }
+        return $retour;
+    }
+    
+    function getCommandesEnCours($etatCommande) {
+        $retour = null;
+// Requête textuelle
+        $sql = "SELECT * FROM $this->nomTable ";
+        $sql .= "INNER JOIN menu m ON $this->nomTable.idCommande=m.idCommande ";
+        $sql .= "INNER JOIN user u ON $this->nomTable.idUser=u.idUser ";
+        $sql .= "INNER JOIN typeRetrait tr ON  $this->nomTable.idTypeRetrait=tr.idTypeRetrait ";
+        $sql .= "INNER JOIN produit p ON m.idProduit=p.idProduit ";
+        $sql .= "INNER JOIN ingredient i ON i.idProduit=p.idProduit ";
+        $sql .= "INNER JOIN sauce s ON s.idProduit=p.idProduit ";
+        $sql .= "WHERE etatCommande = :etatCommande;";            
+        try {
+// préparer la requête PDO
+            $queryPrepare = $this->pdo->prepare($sql);
+// exécuter la requête PDO
+            if ($queryPrepare->execute(array(':etatCommande' => $etatCommande))) {
+// si la requête réussit :
+// initialiser le tableau d'objets à retourner
+                $retour = array();
+// pour chaque enregistrement retourné par la requête
+                while ($enregistrement = $queryPrepare->fetch(PDO::FETCH_ASSOC)) {
+// construir un objet métier correspondant
+                    $unObjetMetier = $this->enregistrementVersObjet($enregistrement);
+// ajouter l'objet au tableau
+                    $retour[] = $unObjetMetier;
+                }
+            }
+        } catch (PDOException $e) {
             echo get_class($this) . ' - ' . __METHOD__ . ' : ' . $e->getMessage();
         }
         return $retour;
