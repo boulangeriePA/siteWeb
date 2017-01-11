@@ -153,14 +153,14 @@ class C_Utilisateur extends C_ControleurGenerique {
         $commandes = $daoCommande->getCommandesByLogin(MaSession::get('login'));
         $this->vue->ecrireDonnee('lesCommandes', $commandes);
         $daoCommande->deconnecter();
-        
-        $daoProduit = new M_DaoProduit();
-        $daoProduit->connecter();
-        //récupération de la liste des commandes
-        $produits = $daoProduit->getProduitsCommandeByIdCommande(2);
-        $this->vue->ecrireDonnee('lesProduits', $produits);
-        $daoProduit->deconnecter();
-        
+//        
+//        $daoProduit = new M_DaoProduit();
+//        $daoProduit->connecter();
+//        //récupération de la liste des commandes
+//        $produits = $daoProduit->getProduitsCommandeByIdCommande($commandes->getIdCommande());
+//        $this->vue->ecrireDonnee('lesProduits', $produits);
+//        $daoProduit->deconnecter();
+//        
         // transmettre le login        
         $this->vue->ecrireDonnee('loginAuthentification', MaSession::get('login'));
         // vue centrale à inclure
@@ -214,7 +214,7 @@ class C_Utilisateur extends C_ControleurGenerique {
         $daoIngredient = new M_DaoIngredient();
         $daoIngredient->connecter();
         //récupération de la liste des sandwichs
-        $ingredients = $daoIngredient->getIngrédients();
+        $ingredients = $daoIngredient->getIngredients();
         $this->vue->ecrireDonnee('lesIngredients', $ingredients);
         $daoIngredient->deconnecter();
         

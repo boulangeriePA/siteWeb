@@ -28,10 +28,10 @@
             //VOIR LES INFORMATIONS
             echo "<li><a href=\".?controleur=utilisateur&action=produits\">Nos Produits</a></li><br>";
             //VOIR LES INFORMATIONS
-            echo "<li><a href=\".?controleur=utilisateur&action=commander\">Commander</a></li>";
+            echo "<li><a href=\".?controleur=utilisateur&action=commander1\">Commander</a></li>";
             //PASSER UNE COMMANDE
         } else {
-            echo "<li><a href=\".?controleur=utilisateur&action=Inscription\">S'inscrire</a></li><br>";
+            echo "<li><a href=\".?controleur=utilisateur&action=inscription\">S'inscrire</a></li><br>";
             echo "<li><a href=\".?controleur=connexion&action=seConnecter\">Se connecter</a></li>";
         }
         if (!is_null($this->lireDonnee('loginAuthentification')) && ((MaSession::get('role') == 1 || MaSession::get('role') == 3))) {

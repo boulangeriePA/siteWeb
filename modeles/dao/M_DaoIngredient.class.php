@@ -104,7 +104,7 @@ class M_DaoIngredient extends M_DaoGenerique {
         return $retour;
     }
     
-    function getIngrédients() {
+    function getIngredients() {
         $retour = null;
 // Requête textuelle
         $sql = "select * from $this->nomTable";
