@@ -210,6 +210,28 @@ class M_DaoCommande extends M_DaoGenerique {
         }
         return $retour;
     }
+
+    function updateCommandesEnCours($idCommande, $objetMetier) {
+        $retour = FALSE;
+        try {
+            // Requête textuelle paramétrée (paramètres nommés)
+            $sql = "UPDATE $this->nomTable SET ";
+            $sql .= "etatCommande = 'terminée' ";
+            $sql .= "WHERE idCommande = :idCommande";
+            // préparer la requête PDO
+            $queryPrepare = $this->pdo->prepare($sql);
+            // préparer la  liste des paramètres la valeur de l'identifiant
+            //  à prendre en compte est celle qui a été passée en paramètre à la méthode
+            $parametres = $this->objetVersEnregistrement($objetMetier);
+            $parametres[':idCommande'] = $idCommande;
+            // exécuter la requête avec les valeurs des paramètres dans un tableau
+            $retour = $queryPrepare->execute($parametres);
+//            debug_query($sql, $parametres);
+        } catch (PDOException $e) {
+            echo get_class($this) . ' - ' . __METHOD__ . ' : ' . $e->getMessage();
+        }
+        return $retour;
+    }
     
     /**
      * Lire tous les enregistrements d'une table

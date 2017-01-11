@@ -56,54 +56,6 @@ class M_DaoDessert extends M_DaoGenerique {
         }
         return $retour;
     }
-
-    public function update($idMetier, $objetMetier) {
-        $retour = FALSE;
-        try {
-            // Requête textuelle paramétrée (paramètres nommés)
-            $sql = "UPDATE $this->nomTable SET ";
-            $sql .= "NOMPRODUIT = :nomProduit ";
-            $sql .= "WHERE IDPRODUIT = :id";
-//            var_dump($sql);
-            // préparer la requête PDO
-            $queryPrepare = $this->pdo->prepare($sql);
-            // préparer la  liste des paramètres la valeur de l'identifiant
-            //  à prendre en compte est celle qui a été passée en paramètre à la méthode
-            $parametres = $this->objetVersEnregistrement($objetMetier);
-            $parametres[':id'] = $idMetier;
-            // exécuter la requête avec les valeurs des paramètres dans un tableau
-            $retour = $queryPrepare->execute($parametres);
-//            debug_query($sql, $parametres);
-        } catch (PDOException $e) {
-            echo get_class($this) . ' - ' . __METHOD__ . ' : ' . $e->getMessage();
-        }
-        return $retour;
-    }
-
-    /**
-     * Retourne toutes les données en rapport avec l'ID du produit en paramètre
-     * @param type $idProduit
-     * @return array $retour
-     */
-    public function selectOne($idProduit) {
-        $retour = null;
-        try {
-            //requete
-            $sql = "SELECT * FROM $this->nomTable WHERE idProduit = :id";
-            //préparer la requête PDO
-
-            $queryPrepare = $this->pdo->prepare($sql);
-            //execution de la  requete
-            if ($queryPrepare->execute(array(':id' => $idProduit))) {
-                // si la requete marche
-                $enregistrement = $queryPrepare->fetch(PDO::FETCH_ASSOC);
-                $retour = $this->enregistrementVersObjet($enregistrement);
-            }
-        } catch (Exception $e) {
-            echo get_class($this) . ' - ' . __METHOD__ . ' : ' . $e->getMessage();
-        }
-        return $retour;
-    }
     
     function getDesserts() {
         $retour = null;

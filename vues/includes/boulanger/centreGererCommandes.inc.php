@@ -16,7 +16,9 @@
         <?php
         foreach ($this->lireDonnee('lesCommandesEnCours') as $uneCommandeEnCours) {
             echo'<tr>';
-            echo'<td>' . $uneCommandeEnCours->getIdCommande() . '</td>';
+            echo'<td>';
+            echo '<button id="boutonRetirerCommande" style="color:red">-</button>';
+            echo ' '.$uneCommandeEnCours->getIdCommande() . '</td>';
             echo'<td>' . $uneCommandeEnCours->getDateHeure() . '</td>';
             echo'<td>' . $uneCommandeEnCours->getHeureRetrait() . '</td>';
             echo'<td>' . $uneCommandeEnCours->getTypeRetrait()->getNomTypeRetrait() . '</td>';
@@ -100,12 +102,28 @@
     document.querySelector("#boutonCommandesEnCours").onclick = function() {
         document.querySelector("#divCommandesEnCours").style.display = "block";
         document.querySelector("#divCommandesTerminees").style.display = "none";
-    }
+    };
     document.querySelector("#boutonCommandesTerminees").onclick = function() {
         document.querySelector("#divCommandesEnCours").style.display = "none";
         document.querySelector("#divCommandesTerminees").style.display = "block";
-    }
+    };
+    document.querySelector("#boutonRetirerCommande").onclick = function() {         
+    };
 </script>
+<?php
+/*
+    $daoCommandes = new M_DaoCommande();
+    $daoCommandes->connecter();
+    //récupération de la liste des organisations
+    $modifCommandeEncours = $daoCommandes->updateCommandesEnCours($uneCommandeEnCours->getIdCommande(),$uneCommandeEnCours);
+    $this->ecrireDonnee('lesModifCommandeEnCours', $modifCommandeEncours);
+    $daoCommandes->deconnecter();
+    $this->lireDonnee('lesModifCommandeEnCours');
+    header('Location: ../index.php');
+    exit();
+ * 
+ */
+?>
 
 <?php
 if (!is_null($this->lireDonnee('message'))) {

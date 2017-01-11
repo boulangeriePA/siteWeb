@@ -77,50 +77,7 @@ class M_DaoProduit extends M_DaoGenerique {
             echo get_class($this) . ' - ' . __METHOD__ . ' : ' . $e->getMessage();
         }
         return $retour;
-    }
-
-    /**
-     * Retourne toutes les données en rapport avec l'ID de la commande en paramètre
-     * @param type $idProduit
-     * @return array $retour
-     */
-    public function selectOne($idProduit) {
-        $retour = null;
-        try {
-            //requete
-            $sql = "SELECT * FROM $this->nomTable WHERE idProduit = :id";
-            //préparer la requête PDO
-            $queryPrepare = $this->pdo->prepare($sql);
-            //execution de la  requete
-            if ($queryPrepare->execute(array(':id' => $idProduit))) {
-                // si la requete marche
-                $enregistrement = $queryPrepare->fetch(PDO::FETCH_ASSOC);
-                $retour = $this->enregistrementVersObjet($enregistrement);
-            }
-        } catch (Exception $e) {
-            echo get_class($this) . ' - ' . __METHOD__ . ' : ' . $e->getMessage();
-        }
-        return $retour;
-    }
-    
-    public function selectOneByName($nomProduit) {
-        $retour = null;
-        try {
-            //requete
-            $sql = "SELECT * FROM $this->nomTable WHERE nomProduit = :nom";
-            //préparer la requête PDO
-            $queryPrepare = $this->pdo->prepare($sql);
-            //execution de la  requete
-            if ($queryPrepare->execute(array(':nom' => $nomProduit))) {
-                // si la requete marche
-                $enregistrement = $queryPrepare->fetch(PDO::FETCH_ASSOC);
-                $retour = $this->enregistrementVersObjet($enregistrement);
-            }
-        } catch (Exception $e) {
-            echo get_class($this) . ' - ' . __METHOD__ . ' : ' . $e->getMessage();
-        }
-        return $retour;
-    }
+    }   
 
     /**
      * Lire tous les enregistrements d'une table

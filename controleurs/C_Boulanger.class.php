@@ -61,19 +61,15 @@ class C_Boulanger extends C_ControleurGenerique {
     function gererCommandes() {              
         $this->vue = new V_Vue("../vues/templates/template.inc.php");
         $this->vue->ecrireDonnee('titreVue', 'Les commandes');
-        $daoCommandeEnCours = new M_DaoCommande();
-        $daoCommandeEnCours->connecter();
-        //récupération de la liste des organisations
-        $commandesEnCours = $daoCommandeEnCours->getCommandesEnCours("en cours");
-        $this->vue->ecrireDonnee('lesCommandesEnCours', $commandesEnCours);
-        $daoCommandeEnCours->deconnecter();
         
-        $daoCommandeTerminee = new M_DaoCommande();
-        $daoCommandeTerminee->connecter();
+        $daoCommandes = new M_DaoCommande();
+        $daoCommandes->connecter();
         //récupération de la liste des organisations
-        $commandesTerminees = $daoCommandeTerminee->getCommandesTerminees("terminée");
+        $commandesEnCours = $daoCommandes->getCommandesEnCours("en cours");
+        $this->vue->ecrireDonnee('lesCommandesEnCours', $commandesEnCours);
+        $commandesTerminees = $daoCommandes->getCommandesTerminees("terminée");
         $this->vue->ecrireDonnee('lesCommandesTerminees', $commandesTerminees);
-        $daoCommandeTerminee->deconnecter();
+        $daoCommandes->deconnecter();
         
         // transmettre le login        
         $this->vue->ecrireDonnee('loginAuthentification', MaSession::get('login'));

@@ -82,49 +82,6 @@ class M_DaoMenu extends M_DaoGenerique {
     }
 
     /**
-     * Retourne toutes les données en rapport avec l'ID de la commande en paramètre
-     * @param type $idMenu
-     * @return array $retour
-     */
-    public function selectOne($idMenu) {
-        $retour = null;
-        try {
-            //requete
-            $sql = "SELECT * FROM $this->nomTable WHERE idMenu = :id";
-            //préparer la requête PDO
-            $queryPrepare = $this->pdo->prepare($sql);
-            //execution de la  requete
-            if ($queryPrepare->execute(array(':id' => $idMenu))) {
-                // si la requete marche
-                $enregistrement = $queryPrepare->fetch(PDO::FETCH_ASSOC);
-                $retour = $this->enregistrementVersObjet($enregistrement);
-            }
-        } catch (Exception $e) {
-            echo get_class($this) . ' - ' . __METHOD__ . ' : ' . $e->getMessage();
-        }
-        return $retour;
-    }
-
-    public function selectOneByName($nomMenu) {
-        $retour = null;
-        try {
-            //requete
-            $sql = "SELECT * FROM $this->nomTable WHERE nomMenu = :nom";
-            //préparer la requête PDO
-            $queryPrepare = $this->pdo->prepare($sql);
-            //execution de la  requete
-            if ($queryPrepare->execute(array(':nom' => $nomMenu))) {
-                // si la requete marche
-                $enregistrement = $queryPrepare->fetch(PDO::FETCH_ASSOC);
-                $retour = $this->enregistrementVersObjet($enregistrement);
-            }
-        } catch (Exception $e) {
-            echo get_class($this) . ' - ' . __METHOD__ . ' : ' . $e->getMessage();
-        }
-        return $retour;
-    }
-
-    /**
      * Lire tous les enregistrements d'une table
      * @return tableau-associatif d'objets : un tableau d'instances de la classe métier
      */
