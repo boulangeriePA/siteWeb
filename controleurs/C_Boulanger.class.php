@@ -71,14 +71,14 @@ class C_Boulanger extends C_ControleurGenerique {
         $daoCommandeTerminee = new M_DaoCommande();
         $daoCommandeTerminee->connecter();
         //récupération de la liste des organisations
-        $commandesTerminees = $daoCommandeTerminee->getCommandesTerminee("terminée");
+        $commandesTerminees = $daoCommandeTerminee->getCommandesTerminees("terminée");
         $this->vue->ecrireDonnee('lesCommandesTerminees', $commandesTerminees);
         $daoCommandeTerminee->deconnecter();
         
         // transmettre le login        
         $this->vue->ecrireDonnee('loginAuthentification', MaSession::get('login'));
         // vue centrale à inclure
-        $this->vue->ecrireDonnee('centre', "../vues/includes/utilisateur/centreGererCommandes.inc.php");
+        $this->vue->ecrireDonnee('centre', "../vues/includes/boulanger/centreGererCommandes.inc.php");
         $this->vue->afficher();
     }
 

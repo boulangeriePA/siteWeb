@@ -26,7 +26,7 @@ class M_DaoCommande extends M_DaoGenerique {
             $daoTypeRetrait->setPdo($this->pdo);
             $leTypeRetrait = $daoTypeRetrait->getOneById($enreg['idTypeRetrait']);
         }
-        $retour = new M_Commande($enreg['idCommande'], $enreg['dateHeure'], $enreg['heureRetrait'], $enreg['idUser'], $leTypeRetrait);
+        $retour = new M_Commande($enreg['idCommande'], $enreg['dateHeure'], $enreg['heureRetrait'], $enreg['idUser'], $leTypeRetrait, $enreg['etatCommande']);
         return $retour;
     }
 
@@ -158,13 +158,8 @@ class M_DaoCommande extends M_DaoGenerique {
         $retour = null;
 // Requête textuelle
         $sql = "SELECT * FROM $this->nomTable ";
-        $sql .= "INNER JOIN menu m ON $this->nomTable.idCommande=m.idCommande ";
-        $sql .= "INNER JOIN user u ON $this->nomTable.idUser=u.idUser ";
         $sql .= "INNER JOIN typeRetrait tr ON  $this->nomTable.idTypeRetrait=tr.idTypeRetrait ";
-        $sql .= "INNER JOIN produit p ON m.idProduit=p.idProduit ";
-        $sql .= "INNER JOIN ingredient i ON i.idProduit=p.idProduit ";
-        $sql .= "INNER JOIN sauce s ON s.idProduit=p.idProduit ";
-        $sql .= "WHERE etatCommande = :etatCommande;";            
+        $sql .= "WHERE $this->nomTable.etatCommande = :etatCommande ORDER BY $this->nomTable.dateHeure ASC;";       
         try {
 // préparer la requête PDO
             $queryPrepare = $this->pdo->prepare($sql);
@@ -187,17 +182,13 @@ class M_DaoCommande extends M_DaoGenerique {
         return $retour;
     }
     
-    function getCommandesTerminee($etatCommande) {
+    function getCommandesTerminees($etatCommande) {
         $retour = null;
 // Requête textuelle
         $sql = "SELECT * FROM $this->nomTable ";
-        $sql .= "INNER JOIN menu m ON $this->nomTable.idCommande=m.idCommande ";
-        $sql .= "INNER JOIN user u ON $this->nomTable.idUser=u.idUser ";
         $sql .= "INNER JOIN typeRetrait tr ON  $this->nomTable.idTypeRetrait=tr.idTypeRetrait ";
-        $sql .= "INNER JOIN produit p ON m.idProduit=p.idProduit ";
-        $sql .= "INNER JOIN ingredient i ON i.idProduit=p.idProduit ";
-        $sql .= "INNER JOIN sauce s ON s.idProduit=p.idProduit ";
-        $sql .= "WHERE etatCommande = :etatCommande;";            
+        $sql .= "WHERE $this->nomTable.etatCommande = :etatCommande ORDER BY $this->nomTable.dateHeure ASC;";
+
         try {
 // préparer la requête PDO
             $queryPrepare = $this->pdo->prepare($sql);

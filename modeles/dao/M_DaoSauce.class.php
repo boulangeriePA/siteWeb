@@ -103,5 +103,39 @@ class M_DaoSauce extends M_DaoGenerique {
         }
         return $retour;
     }
+    
+    function getSauceByIdCommandeAndIdProduit($idCommande,$idProduit) {
+        $retour = null;
+// Requête textuelle
+        $sql = "SELECT $this->nomTable.nomSauce,$this->nomTable.idSauce FROM $this->nomTable ";
+        $sql .= "INNER JOIN assaisonner a ON $this->nomTable.idSauce=a.idSauce ";
+        $sql .= "INNER JOIN produit pr ON a.idProduit=pr.idProduit ";
+        $sql .= "INNER JOIN posseder po ON po.idProduit=pr.idProduit ";
+        $sql .= "INNER JOIN menu m ON po.idMenu=m.idMenu ";
+        $sql .= "INNER JOIN comporter comp ON m.idMenu=comp.idMenu ";
+        $sql .= "INNER JOIN commande ON comp.idCommande=commande.idCommande ";
+        $sql .= "WHERE commande.idCommande = :idCommande ";
+        $sql .= "AND a.idProduit = :idProduit";
+        try {
+// préparer la requête PDO
+            $queryPrepare = $this->pdo->prepare($sql);
+// exécuter la requête PDO
+            if ($queryPrepare->execute(array(':idCommande' => $idCommande, ':idProduit' => $idProduit))) {
+// si la requête réussit :
+// initialiser le tableau d'objets à retourner
+                $retour = array();
+// pour chaque enregistrement retourné par la requête
+                while ($enregistrement = $queryPrepare->fetch(PDO::FETCH_ASSOC)) {
+// construir un objet métier correspondant
+                    $unObjetMetier = $this->enregistrementVersObjet($enregistrement);
+// ajouter l'objet au tableau
+                    $retour[] = $unObjetMetier;
+                }
+            }
+        } catch (PDOException $e) {
+            echo get_class($this) . ' - ' . __METHOD__ . ' : ' . $e->getMessage();
+        }
+        return $retour;
+    }
 
 }

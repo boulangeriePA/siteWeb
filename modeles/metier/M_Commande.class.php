@@ -12,13 +12,15 @@ class M_Commande {
     private $heureRetrait; //type : date
     private $idUser; //type : int
     private $typeRetrait; //objet TypeRetrait
-
-    function __construct($idCommande, $dateHeure, $heureRetrait, $idUser, $typeRetrait) {
+    private $etatCommande; //// type : varchar
+    
+    function __construct($idCommande, $dateHeure, $heureRetrait, $idUser, $typeRetrait,$etatCommande) {
         $this->idCommande = $idCommande;
         $this->dateHeure = $dateHeure;
         $this->heureRetrait = $heureRetrait;
         $this->idUser = $idUser;
         $this->typeRetrait = $typeRetrait;
+        $this->etatCommande = $etatCommande;
     }
 
     function getIdCommande() {
@@ -40,6 +42,10 @@ class M_Commande {
     function getTypeRetrait() {
         return $this->typeRetrait;
     }
+    
+    function getEtatCommande() {
+        return $this->typeRetrait;
+    }
 
     function setIdCommande($idCommande) {
         $this->idCommande = $idCommande;
@@ -58,6 +64,10 @@ class M_Commande {
     }
 
     function setTypeRetrait($typeRetrait) {
+        $this->typeRetrait = $typeRetrait;
+    }
+    
+    function setEtatCommande($typeRetrait) {
         $this->typeRetrait = $typeRetrait;
     }
 
