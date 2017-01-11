@@ -193,6 +193,35 @@ class C_Utilisateur extends C_ControleurGenerique {
         $formules = $daoFormule->getAll();
         $this->vue->ecrireDonnee('lesFormules', $formules);
         $daoFormule->deconnecter();
+        
+        $daoSandwich = new M_DaoSandwich();
+        $daoSandwich->connecter();
+        //récupération de la liste des sandwichs
+        $sandwichs = $daoSandwich->getSandwichs();
+        $this->vue->ecrireDonnee('lesSandwichs', $sandwichs);
+        $daoSandwich->deconnecter();
+        
+        $daoIngredient = new M_DaoIngredient();
+        $daoIngredient->connecter();
+        //récupération de la liste des sandwichs
+        $ingredients = $daoIngredient->getIngredients();
+        $this->vue->ecrireDonnee('lesIngredients', $ingredients);
+        $daoIngredient->deconnecter();
+        
+        $daoDessert = new M_DaoDessert();
+        $daoDessert->connecter();
+        //récupération de la liste des organisations
+        $desserts = $daoDessert->getDesserts();
+        $this->vue->ecrireDonnee('lesDesserts', $desserts);
+        $daoDessert->deconnecter();
+        
+        $daoBoisson = new M_DaoBoisson();
+        $daoBoisson->connecter();
+        //récupération de la liste des organisations
+        $boissons = $daoBoisson->getBoissons();
+        $this->vue->ecrireDonnee('lesBoissons', $boissons);
+        $daoBoisson->deconnecter();
+        
         // transmettre le login        
         $this->vue->ecrireDonnee('loginAuthentification', MaSession::get('login'));
         // vue centrale à inclure
