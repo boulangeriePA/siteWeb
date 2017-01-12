@@ -149,6 +149,13 @@ class C_Utilisateur extends C_ControleurGenerique {
         $sandwichs = $daoSandwich->getSandwichs();
         $this->vue->ecrireDonnee('lesSandwichs', $sandwichs);
         $daoSandwich->deconnecter();
+        
+        $daoTypeRetrait = new M_DaoTypeRetrait();
+        $daoTypeRetrait->connecter();
+        //récupération de la liste des sandwichs
+        $typeRetrait = $daoTypeRetrait->getTypeRetrait();
+        $this->vue->ecrireDonnee('lesTypesRetraits', $typeRetrait);
+        $daoTypeRetrait->deconnecter();
 
         $daoIngredient = new M_DaoIngredient();
         $daoIngredient->connecter();
@@ -181,6 +188,7 @@ class C_Utilisateur extends C_ControleurGenerique {
     function commander3() {
         $this->vue = new V_Vue("../vues/templates/template.inc.php");
         $this->vue->ecrireDonnee('titreVue', 'ValidationCommande');
+        
         $daoFormule = new M_DaoMenu();
         $daoFormule->connecter();
         //récupération de la liste des organisations
@@ -198,7 +206,7 @@ class C_Utilisateur extends C_ControleurGenerique {
         $daoTypeRetrait = new M_DaoTypeRetrait();
         $daoTypeRetrait->connecter();
         //récupération de la liste des sandwichs
-        $typeRetrait = $daoTypeRetrait->getTypesRetraits();
+        $typeRetrait = $daoTypeRetrait->getTypeRetrait();
         $this->vue->ecrireDonnee('lesTypesRetraits', $typeRetrait);
         $daoTypeRetrait->deconnecter();
 

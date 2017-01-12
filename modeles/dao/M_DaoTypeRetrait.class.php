@@ -99,7 +99,7 @@ class M_DaoTypeRetrait extends M_DaoGenerique {
         return $retour;
     }
     
-    function getTypesRetraits() {
+    function getTypeRetrait() {
         $retour = null;
 // Requête textuelle
         $sql = "select * from $this->nomTable ";
@@ -125,5 +125,4 @@ class M_DaoTypeRetrait extends M_DaoGenerique {
         }
         return $retour;
     }
-
 }
