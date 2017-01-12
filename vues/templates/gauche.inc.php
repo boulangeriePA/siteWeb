@@ -49,8 +49,8 @@
             //AJOUTER / MODIFIER / SUPPRIMER UNE COMMANDE
         }if (!is_null($this->lireDonnee('loginAuthentification')) && MaSession::get('role') == 1) {
             //ajout menu de gauche pour l'administrateur
-            echo "<hr>";
-            echo "<li><a href=\".?controleur=adminpersonnes&action=gererUser\">Gérer les utilisateurs</a></li><br>";
+            //echo "<hr>";
+            //echo "<li><a href=\".?controleur=adminpersonnes&action=gererUser\">Gérer les utilisateurs</a></li><br>";
             //AJOUTER / MODIFIER / SUPPRIMER UNE PERSONNE
         //
         }
