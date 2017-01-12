@@ -112,6 +112,16 @@ function DessertsOU() {
                     . '"/> <label style="float: none ;" for="dessert' . $unDessert->getIdProduit() . '">' . $unDessert->getNomProduit() . '</label>';
                 }
             }
+            
+            echo '<br/><hr><br/>';
+            
+            echo 'Choisissez votre type de retrait :<br/><br/>';
+            foreach ($this->lireDonnee('lesTypesRetraits') as $unTypeRetrait) {
+                echo '<input style="float: none ; margin-bottom: 0;" type="radio" name="typeretrait" value="retrait' . $unTypeRetrait->getIdTypeRetrait() . '" id="retrait' . $unTypeRetrait->getIdTypeRetrait()
+                . '"/> <label style="float: none ;" for="retrait' . $unTypeRetrait->getIdTypeRetrait() . '">' . $unTypeRetrait->getNomTypeRetrait() . '</label>';
+            }
+            echo '<br/>';
+            
         ?>
         <p style="text-align: center;"><input style="float: none ; margin-bottom: 0;" type="submit" value="Valider"/></p>
     </fieldset>
