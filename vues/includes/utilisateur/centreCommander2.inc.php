@@ -33,9 +33,22 @@ function DessertsOU() {
             }
             echo $uneFormule->getNomMenu();
             echo '<br/><br/>';
-            echo '<hr><br/>';
-            echo 'Choisissez votre plat :<br/><br/>';
+            echo '<hr><br/>';            
+            echo 'Choisissez vos ingrédients :<br/><br/>';
             
+            foreach ($this->lireDonnee('lesIngredients') as $unIngredient) {
+                echo '<input style="float: none ; margin-bottom: 0;" type="checkbox" name="plats"' . ' value="plat'.$unIngredient->getIdIngredient().'" id="plat'.$unIngredient->getIdIngredient().'"/> <label style="float: none ;"' . ' for="plat'.$unIngredient->getIdIngredient().'">' . $unIngredient->getNomIngredient() . ' </label>';
+                echo '<br/>';
+            }
+            echo '<br/><br/>';
+            echo '<hr><br/>';
+            echo 'Choisissez votre sauce (plusieurs possible) :<br/><br/>';
+            
+            foreach ($this->lireDonnee('lesSauces') as $uneSauce) {
+                echo '<input style="float: none ; margin-bottom: 0;" type="checkbox" name="plats"' . ' value="plat'.$uneSauce->getIdSauce().'" id="plat'.$uneSauce->getIdSauce().'"/> <label style="float: none ;"' . ' for="plat'.$uneSauce->getIdSauce().'">' . $uneSauce->getNomSauce() . ' </label>';
+                echo '<br/>';
+            }
+            /*
             $plat = "";
             $pain = $uneFormule->getNomMenu();
             
@@ -68,6 +81,8 @@ function DessertsOU() {
                 echo '<br/>';
                 echo '<input style="float: none ;" type="radio" name="plats"' . ' value="plat2" id="plat2"/> <label style="float: none ;"' . ' for="plat2">' . $plat . ' Poulet </label>';
             }
+             * 
+             */
             
             echo '<br/><hr><br/>';
             

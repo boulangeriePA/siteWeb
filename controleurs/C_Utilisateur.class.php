@@ -163,6 +163,13 @@ class C_Utilisateur extends C_ControleurGenerique {
         $ingredients = $daoIngredient->getIngredients();
         $this->vue->ecrireDonnee('lesIngredients', $ingredients);
         $daoIngredient->deconnecter();
+        
+        $daoSauce = new M_DaoSauce();
+        $daoSauce->connecter();
+        //récupération de la liste des ingredients
+        $sauces = $daoSauce->getSauces();
+        $this->vue->ecrireDonnee('lesSauces', $sauces);
+        $daoSauce->deconnecter();
 
         $daoDessert = new M_DaoDessert();
         $daoDessert->connecter();
@@ -223,6 +230,13 @@ class C_Utilisateur extends C_ControleurGenerique {
         $desserts = $daoDessert->getDesserts();
         $this->vue->ecrireDonnee('lesDesserts', $desserts);
         $daoDessert->deconnecter();
+        
+        $daoSauce = new M_DaoSauce();
+        $daoSauce->connecter();
+        //récupération de la liste des ingredients
+        $sauces = $daoSauce->getSauces();
+        $this->vue->ecrireDonnee('lesSauces', $sauces);
+        $daoSauce->deconnecter();
 
         $daoBoisson = new M_DaoBoisson();
         $daoBoisson->connecter();
