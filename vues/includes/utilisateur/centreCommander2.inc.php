@@ -1,4 +1,26 @@
 
+<script type="text/javascript">
+function Boissons() {
+
+        if (document.getElementById('boisson').checked) {
+            document.getElementById('afficheBoissons').style.visibility="visible";
+        }
+        else {
+            document.getElementById('afficheBoissons').style.visibility="hidden";
+        }
+}
+
+function Desserts() {
+
+        if (document.getElementById('dessert').checked) {
+            document.getElementById('afficheDesserts').style.visibility="visible";
+        }
+        else {
+            document.getElementById('afficheDesserts').style.visibility="hidden";
+        }
+}
+</script>
+
 <form method="post" action=".?controleur=utilisateur&action=commander2">
     <h1 style="color : red;">Passer une commande</h1>
     <fieldset>
@@ -53,25 +75,31 @@
             //Menu avec : Boisson ou Dessert
             if (strpos($uneFormule->getNomMenu(), "ou")!==false) {
                 echo 'Choisissez votre accompagnement :<br/><br/>';
-                echo '<input style="float: none ;" type="radio" name="boud"' . ' value="boisson" id="boisson"/> <label style="float: none ;" for="boisson">Boissons </label>';
-                echo '<br/>';
-                echo '<input style="float: none ;" type="radio" name="boud"' . ' value="dessert" id="dessert"/> <label style="float: none ;" for="dessert">Desserts </label>';
-                echo '<br/>';
-                if ($boud) {
-                    foreach ($this->lireDonnee('lesBoissons') as $uneBoisson) {
-                        echo '<input style="float: none ;" type="radio" name="boissons" value="boisson' . $uneBoisson->getIdProduit() . '" id="boisson' . $uneBoisson->getIdProduit()
-                        . '"/> <label style="float: none ;" for="boisson' . $uneBoisson->getIdProduit() . '">' . $uneBoisson->getNomProduit() . '</label>';
-                        echo '<br/>';
-                    }
+                echo '<input style="float: none ; margin-bottom: 0;" type="radio" onclick="Boissons()" name="boud"' . ' value="boisson" id="boisson"/> <label style="float: none ;" for="boisson">Boissons </label>';
+                
+                echo '<p id="afficheBoissons" style="visibility: hidden; margin: 0;">';
+                foreach ($this->lireDonnee('lesBoissons') as $uneBoisson) {
+                    echo '<input style="float: none ; margin-bottom: 0;" type="radio" name="boissons" value="boisson' . $uneBoisson->getIdProduit() . '" id="boisson' . $uneBoisson->getIdProduit()
+                    . '"/> <label style="float: none ;" for="boisson' . $uneBoisson->getIdProduit() . '">' . $uneBoisson->getNomProduit() . '</label>';
                 }
+                echo '</p>';
+                
+                echo '<input style="float: none ;" type="radio" onclick="Desserts()" name="boud"' . ' value="dessert" id="dessert"/> <label style="float: none ;" for="dessert">Desserts </label>';
+                echo '<br/>';
             }
-            
             //Menu avec : Boisson + Dessert
             if (strpos($uneFormule->getNomMenu(), "ou")==false) {
                 echo 'Choisissez vos accompagnements :<br/><br/>';
-                echo '<input style="float: none ;" type="checkbox" name="betd1"' . ' value="boisson" id="boisson"/> <label style="float: none ;" for="boisson">Boissons </label>';
-                echo '<br/>';
-                echo '<input style="float: none ;" type="checkbox" name="betd2"' . ' value="dessert" id="dessert"/> <label style="float: none ;" for="dessert">Desserts </label>';
+                echo '<input style="float: none ; margin-bottom: 0;" type="checkbox" onclick="Boissons()" name="betd1"' . ' value="boisson" id="boisson"/> <label style="float: none ;" for="boisson">Boissons </label>';
+                
+                echo '<p id="afficheBoissons" style="visibility: hidden; margin: 0;">'; 
+                foreach ($this->lireDonnee('lesBoissons') as $uneBoisson) {
+                    echo '<input style="float: none ; margin-bottom: 0;" type="radio" name="boissons" value="boisson' . $uneBoisson->getIdProduit() . '" id="boisson' . $uneBoisson->getIdProduit()
+                    . '"/> <label style="float: none ;" for="boisson' . $uneBoisson->getIdProduit() . '">' . $uneBoisson->getNomProduit() . '</label>';
+                }
+                echo '</p>';
+                
+                echo '<input style="float: none ;" type="checkbox" onclick="Desserts()" name="betd2"' . ' value="dessert" id="dessert"/> <label style="float: none ;" for="dessert">Desserts </label>';
                 echo '<br/>';
             }
         ?>
