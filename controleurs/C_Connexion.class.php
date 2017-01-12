@@ -8,9 +8,9 @@ class C_Connexion extends C_ControleurGenerique {
      */
     function seConnecter() {
         $this->vue = new V_Vue("../vues/templates/template.inc.php");
-        $this->vue->ecrireDonnee("titreVue","Connexion");
+        $this->vue->ecrireDonnee("titreVue", "Connexion");
         // Centre : formulaire de connexion
-        $this->vue->ecrireDonnee('centre',"../vues/includes/connexion/centreSeConnecterFormulaire.inc.php");
+        $this->vue->ecrireDonnee('centre', "../vues/includes/connexion/centreSeConnecterFormulaire.inc.php");
         $this->vue->afficher();
     }
 
@@ -22,18 +22,18 @@ class C_Connexion extends C_ControleurGenerique {
      */
     function authentifier() {
         $this->vue = new V_Vue("../vues/templates/template.inc.php");
-        $this->vue->ecrireDonnee('titreVue',"Accueil");
-        $this->vue->ecrireDonnee('centre',"../vues/includes/connexion/centreAuthentifier.inc.php");
+        $this->vue->ecrireDonnee('titreVue', "Accueil");
+        $this->vue->ecrireDonnee('centre', "../vues/includes/connexion/centreAuthentifier.inc.php");
 
 
         //------------------------------------------------------------------------
         // VUE CENTRALE
         //------------------------------------------------------------------------
         $daoUser = new M_DaoUser();
+        $login = htmlentities(stripcslashes(trim($_POST['login'])));
+        $mdp = htmlentities(stripcslashes(trim($_POST['mdp'])));
         // Vérifier login et mot de passe saisis dans la formulaire d'authentification
         if (isset($_POST['login']) && isset($_POST['mdp'])) {
-            $login = $_POST['login'];
-            $mdp = $_POST['mdp'];
             $daoUser->connecter();
             $unUser = $daoUser->verifierLogin($login, $mdp);
             $daoUser->deconnecter();
@@ -44,12 +44,12 @@ class C_Connexion extends C_ControleurGenerique {
 //                $this->vue->getDonnees['message'] = "Authentification r&eacute;ussie";
 //                $this->vue->getDonnees['centre'] = "../vues/connexion/centreAuthentifier.inc.php";
             } else {
-                $this->vue->ecrireDonnee('message',"ECHEC d'identification : login ou mot de passe inconnus ");
-                $this->vue->ecrireDonnee('centre',"../vues/includes/connexion/centreSeConnecterFormulaire.inc.php");
+                $this->vue->ecrireDonnee('message', "ECHEC d'identification : login ou mot de passe inconnus ");
+                $this->vue->ecrireDonnee('centre', "../vues/includes/connexion/centreSeConnecterFormulaire.inc.php");
             }
         } else {
-            $this->vue->ecrireDonnee('message',"Attention : le login ou le mot de passe ne sont pas renseignés");
-            $this->vue->ecrireDonnee('centre',"../vues/includes/connexion/centreSeConnecterFormulaire.inc.php");
+            $this->vue->ecrireDonnee('message', "Attention : le login ou le mot de passe ne sont pas renseignés");
+            $this->vue->ecrireDonnee('centre', "../vues/includes/connexion/centreSeConnecterFormulaire.inc.php");
         }
         //------------------------------------------------------------------------
 

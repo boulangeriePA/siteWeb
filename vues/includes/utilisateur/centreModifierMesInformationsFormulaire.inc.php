@@ -22,7 +22,7 @@ $unUtilisateur = $this->lireDonnee('utilisateur');
         <label for="password">Mot de passe :</label>
         <input type="password" name="password" id="password"></input><br/>
         
-        <p style="text-align: center; display: inline-block;">
+        <p style="text-align: center; float: none ; display: inline-block;">
             <input style="float: none ; margin: 0;" type="submit" value="Sauvegarder" /><!--validation modification-->
             <input style="float: none ; margin: 0;" type="button" value="Retour" onclick="history.back()"><!--allez à la page précédente-->
         </p>

@@ -18,7 +18,7 @@ $numTel = test_input($_POST['tel']);
 $login = test_input($_POST['login']);
 ?>
 
-<h1>Inscription réussie</h1>
+<h1 style="color : red;">Inscription réussie</h1>
 
 <h2>Récapitulatif de ses informations personnelles</h2>
 

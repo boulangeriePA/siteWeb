@@ -54,13 +54,19 @@ class C_Utilisateur extends C_ControleurGenerique {
         // $utilisateur = $daoPers->getOneByLoginEager($id);
         $utilisateur = $daoPers->getOneById($id);
         // var_dump($utilisateur);
+        $nom = htmlentities(stripcslashes(trim($_POST["nom"])));
+        $prenom = htmlentities(stripcslashes(trim($_POST["prenom"])));
+        $mail = htmlentities(stripcslashes(trim($_POST["mail"])));
+        $tel = htmlentities(stripcslashes(trim($_POST["tel"])));
+        $login = htmlentities(stripcslashes(trim($_POST["login"])));
+        $password = $_POST["password"];
         // mettre à jour l'objet métier d'après le formilaire de saisie
-        $utilisateur->setNomUser(htmlentities(stripcslashes(trim($_POST["nom"]))));
-        $utilisateur->setPrenomUser(htmlentities(stripcslashes(trim($_POST["prenom"]))));
-        $utilisateur->setEmail(htmlentities(stripcslashes(trim($_POST["mail"]))));
-        $utilisateur->setTel(htmlentities(stripcslashes(trim($_POST["tel"]))));
-        $utilisateur->setLogin(htmlentities(stripcslashes(trim($_POST["login"]))));
-        $utilisateur->setMdp(sha1($_POST["password"]));
+        if(isset($nom)){$utilisateur->setNomUser($nom);}
+        if(isset($prenom)){$utilisateur->setPrenomUser($prenom);}
+        if(isset($mail)){$utilisateur->setEmail($mail);}
+        if(isset($tel)){$utilisateur->setTel($tel);}
+        if(isset($login)){$utilisateur->setLogin($login);}
+        if(isset($password)){$utilisateur->setMdp(sha1($password));}
         //$utilisateur->setMdp(password_hash($_POST['password'],PASSWORD_BCRYPT));
 
         /*

@@ -6,7 +6,7 @@
 
 <!-- $this->message : à afficher sous le formulaire -->
 <form class="inscription" method="post" action=".?controleur=utilisateur&action=validationInscription" name="CreateUser">
-    <h1>Inscription</h1>
+    <h1 style="color : red;">Inscription</h1>
 
     <!-- Données valables pour tous les rôles -->
     <fieldset>
